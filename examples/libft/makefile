@@ -44,30 +44,25 @@ CFLAGS += -Wold-style-definition
 #CFLAGS += -Wno-misleading-indentation
 CFLAGS += -L. -lft
 
-TARGET_BASE1=test1
-TARGET_BASE2=test2
-TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
-TARGET2 = $(TARGET_BASE2)$(TARGET_EXTENSION)
-SRC_FILES1=$(UNITY_ROOT)/src/unity.c test/TestProductionCode.c  test/test_runners/TestProductionCode_Runner.c
-SRC_FILES2=$(UNITY_ROOT)/src/unity.c src/ProductionCode2.c test/TestProductionCode2.c test/test_runners/TestProductionCode2_Runner.c
+TEST_DIR=test
+TEST_RUNNER_DIR=test_runners
+TARGET_BASE=test
+TARGET = $(TARGET_BASE)$(TARGET_EXTENSION)
+SRC_FILES=$(UNITY_ROOT)/src/unity.c $(TEST_DIR)/TestProductionCode.c  $(TEST_RUNNER_DIR)/TestProductionCode_Runner.c
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I.
 SYMBOLS=
 
 all: clean default
 
-default: $(SRC_FILES1) $(SRC_FILES2)
-	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
-	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES2) -o $(TARGET2)
-	- ./$(TARGET1)
-	- ./$(TARGET2)
+default: $(SRC_FILES) 
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES) -o $(TARGET)
+	- ./$(TARGET)
 
-test/test_runners/TestProductionCode_Runner.c: test/TestProductionCode.c
+$(TEST_RUNNER_DIR)/TestProductionCode_Runner.c: test/TestProductionCode.c
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/TestProductionCode.c  test/test_runners/TestProductionCode_Runner.c
-test/test_runners/TestProductionCode2_Runner.c: test/TestProductionCode2.c
-	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/TestProductionCode2.c test/test_runners/TestProductionCode2_Runner.c
 
 clean:
-	$(CLEANUP) $(TARGET1) $(TARGET2)
+	$(CLEANUP) $(TARGET) 
 
 ci: CFLAGS += -Werror
 ci: default
