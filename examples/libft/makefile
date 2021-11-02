@@ -46,9 +46,13 @@ CFLAGS += -L. -lft
 
 TEST_DIR=test
 TEST_RUNNER_DIR=test_runners
+
+TESTS=$(shell find $(TEST_DIR) -name '*.c')
+TEST_RUNNERS=$(TESTS:$(TEST_DIR)/%.c=$(TEST_RUNNER_DIR)/%_Runner.c)
+
 TARGET_BASE=test
 TARGET = $(TARGET_BASE)$(TARGET_EXTENSION)
-SRC_FILES=$(UNITY_ROOT)/src/unity.c $(TEST_DIR)/TestProductionCode.c  $(TEST_RUNNER_DIR)/TestProductionCode_Runner.c
+SRC_FILES=$(UNITY_ROOT)/src/unity.c $(TESTS) $(TEST_RUNNERS)
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I.
 SYMBOLS=
 
