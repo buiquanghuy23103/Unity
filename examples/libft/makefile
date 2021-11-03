@@ -60,6 +60,7 @@ INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I.
 SYMBOLS=
 
 all: clean default
+	./run_all_test.sh
 
 default: $(TARGETS)
 
