@@ -1,2 +1,4 @@
 test_runners
-*.out
+targets
+libft.a
+libft.h
