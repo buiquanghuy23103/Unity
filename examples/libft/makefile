@@ -46,27 +46,35 @@ CFLAGS += -L. -lft
 
 TEST_DIR=test
 TEST_RUNNER_DIR=test_runners
+TARGET_DIR=targets
 
 TESTS=$(shell find $(TEST_DIR) -name '*.c')
 TEST_RUNNERS=$(TESTS:$(TEST_DIR)/%.c=$(TEST_RUNNER_DIR)/%_Runner.c)
+TARGETS=$(TESTS:$(TEST_DIR)/%.c=$(TARGET_DIR)/%$(TARGET_EXTENSION))
 
 TARGET_BASE=test
 TARGET = $(TARGET_BASE)$(TARGET_EXTENSION)
 SRC_FILES=$(UNITY_ROOT)/src/unity.c $(TESTS) $(TEST_RUNNERS)
+TEST_LIB=$(UNITY_ROOT)/src/unity.c 
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I.
 SYMBOLS=
 
 all: clean default
 
-default: $(SRC_FILES) 
-	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES) -o $(TARGET)
-	- ./$(TARGET)
+default: $(TARGETS)
 
-$(TEST_RUNNER_DIR)/TestProductionCode_Runner.c: test/TestProductionCode.c
-	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/TestProductionCode.c  test/test_runners/TestProductionCode_Runner.c
+$(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(TEST_LIB) $^ -o $@
+
+#default: $(SRC_FILES) 
+#	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES) -o $(TARGET)
+#	- ./$(TARGET)
+
+$(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
+	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb $^ $@
 
 clean:
-	$(CLEANUP) $(TARGET) 
+	$(CLEANUP) $(TARGETS) 
 
 ci: CFLAGS += -Werror
 ci: default
