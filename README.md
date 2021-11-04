@@ -44,6 +44,8 @@ Please note that even though `setup()` and `tearDown()` are empty, you should no
 
 It is recommended that each Hiver has his/her own test file and don't modify the others to avoid conflicts. You can provide feedbacks to others' tests by leaving a comment on GitHub and don't forget to [enable GitHub notification](https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications).
 
+If you want to split your test code into multiple files, feel free to do it. However, please remember to put your login in the test file.
+
 ## How to contribute to the project
 
 If you want to make your test files visible on this GitHub, please follow [this instruction on how to contribute to a GitHub project](https://www.dataschool.io/how-to-contribute-on-github/)
