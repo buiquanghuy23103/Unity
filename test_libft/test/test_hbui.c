@@ -8,17 +8,13 @@ void	setUp(void)
 void	tearDown(void)
 {
 }
-void	test_strlen_whenAbc_then3(void)
-{
-	TEST_ASSERT_EQUAL(3, ft_strlen("abc"));
-}
 
-void	test_strlen_whenNull_then0(void)
+void	test_strlen_whenAbc(void)
 {
-	TEST_ASSERT_EQUAL(0, ft_strlen(0));
+	TEST_ASSERT_EQUAL(strlen("abc"), ft_strlen("abc"));
 }
 
 void	test_strlen_whenEmpty_then0(void)
 {
-	TEST_ASSERT_EQUAL(0, ft_strlen(""));
+	TEST_ASSERT_EQUAL(strlen(""), ft_strlen(""));
 }
