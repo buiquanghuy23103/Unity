@@ -41,7 +41,6 @@ CFLAGS += -Wno-unknown-pragmas
 CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
-#CFLAGS += -Wno-misleading-indentation
 CFLAGS += -L. -lft
 
 TEST_DIR=test
@@ -67,15 +66,8 @@ default: $(TARGETS)
 $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(TEST_LIB) $^ -o $@
 
-#default: $(SRC_FILES) 
-#	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES) -o $(TARGET)
-#	- ./$(TARGET)
-
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb $^ $@
 
 clean:
 	$(CLEANUP) $(TARGETS) 
-
-ci: CFLAGS += -Werror
-ci: default
