@@ -70,4 +70,4 @@ $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb $^ $@
 
 clean:
-	$(CLEANUP) $(TARGETS) 
+	$(CLEANUP) $(TARGET_DIR)/* 
