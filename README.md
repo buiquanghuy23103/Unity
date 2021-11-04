@@ -14,8 +14,7 @@ The `docs` directory contains a "Getting started guide" and much more tips about
 
 1. Go to `test_libft`
 2. Create symbolic link `libft.a` and `libft.h` to your static library and header respectively.
-3. Type `make` and hit Enter. That will be all :)
-4. If you don't want `make` to display the commands it run, use `make -s` instead.
+3. Type `make -s` and hit Enter. The option `-s` will prevent `make` from printing all the commands it runs.
 
 ## How to write a test
 
