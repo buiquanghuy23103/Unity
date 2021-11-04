@@ -1,12 +1,14 @@
-# What this repo about?
+# Test repo for Hivers
+
+## What this repo about?
 
 This repo is a fork of the [Unity Test Project](https://github.com/ThrowTheSwitch/Unity), one of the main projects of ThrowTheSwitch.org.
-Unity Test is a unit testing framework built for C, with a focus on working with embedded toolchains.
 
+Everyone can add tests to `test_libft/test` directory of this repo. Each test file will be compiled to an executable named `test_yourlogin.out` in `targets` directory and run separately. The test depends on two symbolic links `libft.h` and `libft.a` which points to your header file and static library, meaning that you can put this repo outside of your workspace and run independently.
 
 ## Documentation
 
-The `docs` folder contains a [getting started guide][] and much more tips about using Unity.
+The `docs` directory contains a "Getting started guide" and much more tips about using Unity.
 
 ## How to run the test
 
@@ -30,12 +32,14 @@ void setUp(void)
 void tearDown(void)
 {
 }
+
 void test_strlen(void)
 {
 	TEST_ASSERT_EQUAL(3, ft_strlen("abc"));
 }
 ``` 
 Please note that even though `setup()` and `tearDown()` are empty, you should not remove it. Otherwise, the test will not run. Please refer to the [documentation](https://github.com/ThrowTheSwitch/Unity/blob/master/docs/UnityGettingStartedGuide.md) for more information.
+
 ## Recommendation
 
 It is recommended that each Hiver has his/her own test file and don't modify the others to avoid conflicts. You can provide feedbacks to others' tests by leaving a comment on GitHub and don't forget to [enable GitHub notification](https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications).
