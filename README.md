@@ -40,6 +40,8 @@ void test_strlen(void)
 ``` 
 Please note that even though `setup()` and `tearDown()` are empty, you should not remove it. Otherwise, the test will not run. Please refer to the [documentation](https://github.com/ThrowTheSwitch/Unity/blob/master/docs/UnityGettingStartedGuide.md) for more information.
 
+Name of each test function needs to start with `test`. Otherwise, the test function will not be recognized by the test runner, and thus will not run.
+
 ## Recommendation
 
 It is recommended that each Hiver has his/her own test file and don't modify the others to avoid conflicts. You can provide feedbacks to others' tests by leaving a comment on GitHub and don't forget to [enable GitHub notification](https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications).
