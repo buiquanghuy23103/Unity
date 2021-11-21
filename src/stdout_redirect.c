@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:22:45 by cchen             #+#    #+#             */
-/*   Updated: 2021/11/21 21:23:26 by hbui             ###   ########.fr       */
+/*   Updated: 2021/11/21 23:11:06 by hbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	reset_output(int *copy_out)
 	close(*copy_out);
 }
 
-void	fr_clean_up(FILE *file, char *res)
+void	clean_up(FILE * file)
 {
 	if (fclose(file))
 	{
@@ -41,5 +41,17 @@ void	fr_clean_up(FILE *file, char *res)
 		fprintf(stderr, "Cannot remove temp file\n");
 		exit (1);
 	}
-	free(res);
+}
+
+size_t	file_size(FILE *file)
+{
+	long	size;
+
+	fseek(file, 0L, SEEK_END);
+	size = ftell(file);
+	rewind(file);
+	if (size >= 0)
+		return ((size_t) size);
+	else
+		return (0);
 }
