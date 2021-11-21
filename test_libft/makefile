@@ -18,7 +18,7 @@ TESTS=$(shell find $(TEST_DIR) -name '*.c')
 TEST_RUNNERS=$(TESTS:$(TEST_DIR)/%.c=$(TEST_RUNNER_DIR)/%_Runner.c)
 TARGETS=$(TESTS:$(TEST_DIR)/%.c=$(TARGET_DIR)/%$(TARGET_EXTENSION))
 
-TEST_LIB=$(UNITY_ROOT)/src/unity.c 
+TEST_LIB=$(UNITY_ROOT)/src/*.c 
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I.
 
 all: clean default
@@ -32,4 +32,4 @@ $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb $^ $@
 
 clean:
-	$(CLEANUP) $(TARGET_DIR)/*.out
+	$(CLEANUP) $(TARGET_DIR)/*$(TARGET_EXTENSION)
