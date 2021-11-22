@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:22:45 by cchen             #+#    #+#             */
-/*   Updated: 2021/11/21 23:11:06 by hbui             ###   ########.fr       */
+/*   Updated: 2021/11/22 08:35:59 by hbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,21 @@ size_t	file_size(FILE *file)
 		return ((size_t) size);
 	else
 		return (0);
+}
+
+char	*actual_stdout_str(int fd)
+{
+	FILE	*file;
+	size_t	size;
+	char	*actual;
+
+	file = fdopen(fd, "r");
+	size = file_size(file);
+	rewind(file);
+	actual = (char*)malloc(sizeof(char) * (size + 1));
+	if (!actual)
+		return (NULL);
+	fscanf(file, "%s", actual);
+	clean_up(file);
+	return (actual);
 }

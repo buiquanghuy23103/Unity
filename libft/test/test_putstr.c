@@ -30,10 +30,8 @@ void	test_when_zero_fd_then_print_output(void)
 {
 	int		fd;
 	int		copy_out;
-	size_t	size;
 	char	*str;
 	char	*actual;
-	FILE	*file;
 
 	fd = 0;
 	copy_out = 0;
@@ -41,14 +39,7 @@ void	test_when_zero_fd_then_print_output(void)
 	init_redirect(&fd, &copy_out);
 	ft_putstr(str);
 	reset_output(&copy_out);
-	file = fdopen(fd, "r");
-	size = file_size(file);
-	rewind(file);
-	if (size < 0)
-		return ;
-	actual = (char*)malloc(sizeof(char) * (size + 1));
-	fscanf(file, "%s", actual);
+	actual = actual_stdout_str(fd);
 	TEST_ASSERT_EQUAL_STRING(str, actual);
 	free(actual);
-	clean_up(file);
 }
