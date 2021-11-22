@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:22:45 by cchen             #+#    #+#             */
-/*   Updated: 2021/11/22 13:02:38 by hbui             ###   ########.fr       */
+/*   Updated: 2021/11/22 13:06:44 by hbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static size_t	file_size(FILE *file)
 		return (0);
 }
 
-char	*actual_stdout_str(int fd)
+static char	*read_file(int fd)
 {
 	FILE	*file;
 	size_t	size;
@@ -94,7 +94,7 @@ void	TEST_ASSERT_FILE_CONTENT(char *expected, int file_desc)
 {
 	char	*actual;
 
-	actual = actual_stdout_str(file_desc);
+	actual = read_file(file_desc);
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 	free(actual);
 }
