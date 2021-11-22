@@ -23,7 +23,7 @@ void	test_when_negative_fd_then_non_error(void)
 	ft_putchar_fd('a', -1);
 	ft_putstr_fd("abc", -1);
 	ft_putendl_fd("abc", -1);
-	TEST_ASSERT_EQUAL(1, 1);
+	TEST_PASS();
 }
 
 void	test_when_zero_fd_then_print_output(void)
