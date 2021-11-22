@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:22:45 by cchen             #+#    #+#             */
-/*   Updated: 2021/11/22 11:17:37 by hbui             ###   ########.fr       */
+/*   Updated: 2021/11/22 12:53:48 by hbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,13 @@ char	*actual_stdout_str(int fd)
 	}
 	clean_up(file);
 	return (actual);
+}
+
+void	TEST_ASSERT_FILE_CONTENT(char *expected, int file_desc)
+{
+	char	*actual;
+
+	actual = actual_stdout_str(file_desc);
+	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(actual);
 }
