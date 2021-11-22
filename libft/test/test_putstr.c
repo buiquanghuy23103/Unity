@@ -51,3 +51,21 @@ void	test_when_positive_fd_then_print_to_file(void)
 	ft_putstr_fd(str, fd);
 	TEST_ASSERT_FILE_CONTENT(str, fd);
 }
+
+void	test_putendl_when_sentence(void)
+{
+	int		fd;
+
+	fd = open_temp();
+	ft_putendl_fd("This is a test text.", fd);
+	TEST_ASSERT_FILE_CONTENT("This is a test text.\n", fd);
+}
+
+void	test_putendl_when_empty_str_then_only_newline(void)
+{
+	int		fd;
+
+	fd = open_temp();
+	ft_putendl_fd("", fd);
+	TEST_ASSERT_FILE_CONTENT("\n", fd);
+}
