@@ -6,19 +6,28 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:22:45 by cchen             #+#    #+#             */
-/*   Updated: 2021/11/22 08:35:59 by hbui             ###   ########.fr       */
+/*   Updated: 2021/11/22 11:17:37 by hbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testft.h"
 
-void	init_redirect(int *file_desc, int *copy_out)
+int	open_temp()
 {
-	if ((*file_desc = open("temp", O_RDWR|O_CREAT|O_TRUNC, 0666)) == -1)
+	int	fd;
+
+	fd = open("temp", O_RDWR|O_CREAT|O_TRUNC, 0666);
+	if (fd == -1)
 	{
-		printf("Could not open temp file.\n");
+		fprintf(stderr, "Could not open temp file.\n");
 		exit (1);
 	}
+	return (fd);
+}
+
+void	init_redirect(int *file_desc, int *copy_out)
+{
+	*file_desc = open_temp();
 	*copy_out = dup(fileno(stdout));
 	dup2(*file_desc, fileno(stdout));
 }
@@ -43,7 +52,7 @@ void	clean_up(FILE * file)
 	}
 }
 
-size_t	file_size(FILE *file)
+static size_t	file_size(FILE *file)
 {
 	long	size;
 
@@ -61,6 +70,7 @@ char	*actual_stdout_str(int fd)
 	FILE	*file;
 	size_t	size;
 	char	*actual;
+	int		error;
 
 	file = fdopen(fd, "r");
 	size = file_size(file);
@@ -68,7 +78,13 @@ char	*actual_stdout_str(int fd)
 	actual = (char*)malloc(sizeof(char) * (size + 1));
 	if (!actual)
 		return (NULL);
-	fscanf(file, "%s", actual);
+	fread(actual, sizeof(char), size, file);
+	if ((error = ferror(file)) != 0)
+	{
+		fprintf(stderr, "Cannot read temp file\n. Error code: %d", error);
+		clean_up(file);
+		exit(1);
+	}
 	clean_up(file);
 	return (actual);
 }

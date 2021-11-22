@@ -11,7 +11,7 @@
 void	init_redirect(int *file_desc, int *copy_out);
 void	reset_output(int *copy_out);
 void	clean_up(FILE * file);
-size_t	file_size(FILE *file);
 char	*actual_stdout_str(int fd);
+int		open_temp();
 
 #endif

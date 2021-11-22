@@ -43,3 +43,17 @@ void	test_when_zero_fd_then_print_output(void)
 	TEST_ASSERT_EQUAL_STRING(str, actual);
 	free(actual);
 }
+
+void	test_when_positive_fd_then_print_to_file(void)
+{
+	int		fd;
+	char	*str;
+	char	*actual;
+
+	str = "ab cd\n3";
+	fd = open_temp();
+	ft_putstr_fd(str, fd);
+	actual = actual_stdout_str(fd);
+	TEST_ASSERT_EQUAL_STRING(str, actual);
+	free(actual);
+}
