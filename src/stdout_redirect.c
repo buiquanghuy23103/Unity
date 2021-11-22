@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:22:45 by cchen             #+#    #+#             */
-/*   Updated: 2021/11/22 12:53:48 by hbui             ###   ########.fr       */
+/*   Updated: 2021/11/22 13:02:38 by hbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	*actual_stdout_str(int fd)
 	if (!actual)
 		return (NULL);
 	fread(actual, sizeof(char), size, file);
+	actual[size] = '\0';
 	if ((error = ferror(file)) != 0)
 	{
 		fprintf(stderr, "Cannot read temp file\n. Error code: %d", error);
