@@ -12,24 +12,25 @@ void	tearDown(void)
 {
 }
 
-void	test_when_size_0_then_do_nothing(void)
+void	test_1(void)
 {
-	ft_memalloc(0);
-	TEST_PASS();
+	void	*actual;
+	void	*expected;
+	size_t	size;
+
+	size = 100;
+	actual = ft_memalloc(size);
+	expected = calloc(size, 1);
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(expected, actual, size, "simple test");
+	free(actual);
+	free(expected);
 }
 
-void	test_when_size_6_then_allocate_mem_fresh(void)
+void	test_2(void)
 {
-	char	*mem;
-	size_t	size;
-	size_t	i;
+	void	*actual;
 
-	size = 6;
-	i = 0;
-	mem = (char *) ft_memalloc(size);
-	while (i < size)
-	{
-		TEST_ASSERT_EQUAL_CHAR('\0', mem[i]);
-		i++;
-	}
+	actual = ft_memalloc(ULONG_MAX);
+	TEST_ASSERT_NULL(actual);
+	free(actual);
 }
