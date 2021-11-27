@@ -14,10 +14,18 @@ void	tearDown(void)
 
 void	test_when_len_zero_then_null(void)
 {
-	TEST_ASSERT_EMPTY(ft_strsub("Hello world!", 3, 0));
+	char	*actual;
+
+	actual = ft_strsub("Hello world!", 3, 0);
+	TEST_ASSERT_EMPTY(actual);
+	free(actual);
 }
 
 void	test_when_start_and_len_valid(void)
 {
-	TEST_ASSERT_EQUAL_STRING("world", ft_strsub("Hello world!\n", 6, 5));
+	char	*actual;
+
+	actual = ft_strsub("Hello world!\n", 6, 5);
+	TEST_ASSERT_EQUAL_STRING("world", actual);
+	free(actual);
 }

@@ -12,10 +12,13 @@ void	tearDown(void)
 {
 }
 
-void	test_when_size_0_then_do_nothing(void)
+void	test_when_size_too_big_then_null(void)
 {
-	ft_strnew(0);
-	TEST_PASS();
+	char	*actual;
+
+	actual = ft_strnew(ULONG_MAX);
+	TEST_ASSERT_NULL(actual);
+	free(actual);
 }
 
 void	test_when_size_6_then_empty_new_str(void)
@@ -32,4 +35,5 @@ void	test_when_size_6_then_empty_new_str(void)
 		TEST_ASSERT_EQUAL_CHAR('\0', mem[i]);
 		i++;
 	}
+	free(mem);
 }

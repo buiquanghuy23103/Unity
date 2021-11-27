@@ -27,6 +27,7 @@ void	test_when_clear_empty_str(void)
 		TEST_ASSERT_EQUAL_CHAR('\0', mem[i]);
 		i++;
 	}
+	free(mem);
 }
 
 void	test_when_clear_long_str(void)
