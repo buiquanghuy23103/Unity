@@ -8,52 +8,37 @@ void	setUp(void)
 void	tearDown(void)
 {
 }
+
+static void	TEST_ASSERT_STRNCMP(char *s1, char *s2, size_t n)
+{
+	TEST_ASSERT_EQUAL_INT(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+}
+
 void	test_when_s1_empty(void)
 {
-	const char *s1 = "";
-	const char *s2 = "abc";
-	size_t n = 2;
-	TEST_ASSERT_EQUAL(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+	TEST_ASSERT_STRNCMP("", "abc", 2);
 }
 void	test_when_s2_empty(void)
 {
-	const char *s1 = "abc";
-	const char *s2 = "";
-	size_t n = 2;
-	TEST_ASSERT_EQUAL(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+	TEST_ASSERT_STRNCMP("abc", "", 2);
 }
 void	test_when_n_larger_than_s1(void)
 {
-	const char *s1 = "abc";
-	const char *s2 = "abcde";
-	size_t n = 4;
-	TEST_ASSERT_EQUAL(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+	TEST_ASSERT_STRNCMP("Hello ", "Hello world!\n", 8);
 }
 void	test_when_n_larger_than_s2(void)
 {
-	const char *s1 = "abcde";
-	const char *s2 = "abc";
-	size_t n = 4;
-	TEST_ASSERT_EQUAL(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+	TEST_ASSERT_STRNCMP("helllo world!", "hello", 8);
 }
 void	test_when_n_zero(void)
 {
-	const char *s1 = "abc";
-	const char *s2 = "abc";
-	size_t n = 0;
-	TEST_ASSERT_EQUAL(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+	TEST_ASSERT_STRNCMP("Hello world", "Hello world!", 0);
 }
 void	test_when_s1_partially_equal_s2(void)
 {
-	const char *s1 = "abcdef";
-	const char *s2 = "abcxyz";
-	size_t n = 3;
-	TEST_ASSERT_EQUAL(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+	TEST_ASSERT_STRNCMP("Hello world!", "HellZ world!", 6);
 }
-void	test_when_one_char_difference(void)
+void	test_unsigned_char_conversion(void)
 {
-	const char *s1 = "abcdef";
-	const char *s2 = "abcxef";
-	size_t n = 5;
-	TEST_ASSERT_EQUAL(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+	TEST_ASSERT_STRNCMP("\200", "\0", 1);
 }
