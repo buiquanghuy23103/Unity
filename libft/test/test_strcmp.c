@@ -43,3 +43,10 @@ void	test_when_s1_shorter_s2(void)
 	const char *s2 = "abc";
 	TEST_ASSERT_EQUAL(strcmp(s1, s2), ft_strcmp(s1, s2));
 }
+
+void	test_2(void)
+{
+	const char *s1 = "\200";
+	const char *s2 = "\0";
+	TEST_ASSERT_EQUAL(strcmp(s1, s2), ft_strcmp(s1, s2));
+}
