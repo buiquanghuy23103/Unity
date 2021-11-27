@@ -12,7 +12,7 @@ void	tearDown(void)
 {
 }
 
-void	test_when_len_zero_then_null(void)
+void	test_when_len_zero_then_empty_string(void)
 {
 	char	*actual;
 
