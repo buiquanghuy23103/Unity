@@ -37,3 +37,13 @@ void	test_when_size_6_then_empty_new_str(void)
 	}
 	free(mem);
 }
+
+void	test_when_size_zero_then_empty_string(void)
+{
+	char	*actual;
+
+	actual = ft_strnew(0);
+	TEST_ASSERT_NOT_NULL(actual);
+	TEST_ASSERT_EMPTY(actual);
+	free(actual);
+}
