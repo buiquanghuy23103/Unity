@@ -12,23 +12,40 @@ void	tearDown(void)
 {
 }
 
-void	test_0(void)
+static void	ASSERT_STRSPLIT(char *expected[], char *src, char c, int array_len)
 {
-	TEST_ASSERT_EQUAL_INT(3, ft_elem_count("*hello*fellow***students*", '*'));
+	int		i;
+	char	**actual;
+
+	i = 0;
+	actual = ft_strsplit(src, c);
+	while(i < array_len)
+	{
+		TEST_ASSERT_EQUAL_STRING(expected[i], actual[i]);
+		i++;
+	}
 }
 
 void	test_1(void)
 {
-	char	**actual;
 	char	*expected[] = {"hello", "fellow", "students", NULL};
+	char	src[] = "*hello*fellow***students*";
 
+	ASSERT_STRSPLIT(expected, src, '*', 4); 
+}
 
-	actual = ft_strsplit("*hello*fellow***students*", '*');
-	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, actual, 4);
-	while(*actual)
-	{
-		free(*actual);
-		actual++;
-	}
-	free(actual);
+void	test_no_char_c_at_beginning(void)
+{
+	char	*expected[] = {"hello", "fellow", "students", NULL};
+	char	src[] = "hello*fellow***students*";
+
+	ASSERT_STRSPLIT(expected, src, '*', 4); 
+}
+
+void	test_no_char_c(void)
+{
+	char	*expected[] = {"hello fellow students.", NULL};
+	char	src[] = "hello fellow students.";
+
+	ASSERT_STRSPLIT(expected, src, '*', 2); 
 }
