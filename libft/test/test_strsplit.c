@@ -22,8 +22,10 @@ static void	ASSERT_STRSPLIT(char *expected[], char *src, char c, int array_len)
 	while(i < array_len)
 	{
 		TEST_ASSERT_EQUAL_STRING(expected[i], actual[i]);
+		free(actual[i]);
 		i++;
 	}
+	free(actual);
 }
 
 void	test_1(void)
