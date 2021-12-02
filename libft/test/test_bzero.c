@@ -28,6 +28,32 @@ void	test_when_n_positive_then_bzero_char(void)
 	TEST_ASSERT_EQUAL_CHAR('!', str[5]);
 	TEST_ASSERT_EQUAL_CHAR('\n', str[6]);
 }
+
+void	test_1(void)
+{
+	char	b1[] = "Hello world!";
+	char	b2[] = "Hello world!";
+
+	ft_bzero(b1, sizeof(b1));
+	bzero(b2, sizeof(b2));
+
+	TEST_ASSERT_EQUAL_MEMORY(b2, b1, sizeof(b2));
+}
+
+void	test_when_mem_is_int_array(void)
+{
+	int	b1[100];
+	int	b2[100];
+
+	memset(b1, INT_MAX, 100);
+	memset(b2, INT_MAX, 100);
+
+	ft_bzero(b1, sizeof(b1));
+	bzero(b2, sizeof(b2));
+
+	TEST_ASSERT_EQUAL_MEMORY(b2, b1, sizeof(b2));
+}
+
 void	test_when_n_zero_then_do_nothing(void)
 {
 	char	*input;
