@@ -39,3 +39,58 @@ void	test_when_size_zero(void)
 	actual = (char*) ft_memset(input_actual, 'z', (0));
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
+
+void	test_when_mem_is_integer_array(void)
+{
+	int		tab1[100];
+	int		tab2[100];
+
+	ft_memset(tab1, 99, 100);
+	memset(tab2, 99, 100);
+
+	TEST_ASSERT_EQUAL_MEMORY(tab2, tab1, 100);
+}
+
+void	test_when_mem_is_unsigned_long(void)
+{
+	unsigned long		tab1[100];
+	unsigned long		tab2[100];
+
+	ft_memset(tab1, 99, 100);
+	memset(tab2, 99, 100);
+
+	TEST_ASSERT_EQUAL_MEMORY(tab2, tab1, 100);
+}
+
+void	test_when_mem_is_string(void)
+{
+	char	tab1[100];
+	char	tab2[100];
+
+	ft_memset(tab1, 99, 100);
+	memset(tab2, 99, 100);
+
+	TEST_ASSERT_EQUAL_MEMORY(tab2, tab1, 100);
+}
+
+void	test_when_set_value_is_int_max(void)
+{
+	int		tab1[100];
+	int		tab2[100];
+
+	ft_memset(tab1, INT_MAX, 100);
+	memset(tab2, INT_MAX, 100);
+
+	TEST_ASSERT_EQUAL_MEMORY(tab2, tab1, 100);
+}
+
+void	test_when_set_value_is_uchar_max(void)
+{
+	char	tab1[100];
+	char	tab2[100];
+
+	ft_memset(tab1, UCHAR_MAX, 100);
+	memset(tab2, UCHAR_MAX, 100);
+
+	TEST_ASSERT_EQUAL_MEMORY(tab2, tab1, 100);
+}
