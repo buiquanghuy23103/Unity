@@ -58,3 +58,8 @@ void	test_when_space_symbol_before(void)
 	const char *str = " +7493";
 	TEST_ASSERT_EQUAL(atoi(str), ft_atoi(str)); 
 }
+void	test_when_very_long_integer(void)
+{
+	const char str[] = "999999999999999";
+	TEST_ASSERT_EQUAL(atoi(str), ft_atoi(str)); 
+}
