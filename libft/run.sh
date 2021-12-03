@@ -7,7 +7,8 @@ produce_test_files() {
 
 execute_test_files() {
 	for f in targets/* ; do
-		leaks -q --atExit -- ./$f
+		echo "$f"
+		./$f
 	done
 }
 
