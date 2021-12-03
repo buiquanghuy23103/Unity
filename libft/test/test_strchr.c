@@ -57,7 +57,7 @@ void	test_empty_string_and_null_char(void)
 	ASSERT_STRCHR("", 0);
 }
 
-void	test_null_string(void)
-{
-	ASSERT_STRCHR(NULL, 'h');
-}
+//void	test_null_string(void)
+//{
+//	ASSERT_STRCHR(NULL, 'h');
+//}
