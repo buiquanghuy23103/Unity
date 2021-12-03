@@ -14,7 +14,7 @@ The `docs` directory contains a "Getting started guide" and much more tips about
 
 1. Go to `test_libft`
 2. Create symbolic link `libft.a` and `libft.h` to your static library and header respectively.
-3. Type `make` and hit Enter. That will be all :)
+3. Type `make -s` and hit Enter. The option `-s` will prevent `make` from printing all the commands it runs.
 
 ## How to write a test
 
@@ -39,6 +39,8 @@ void test_strlen(void)
 }
 ``` 
 Please note that even though `setup()` and `tearDown()` are empty, you should not remove it. Otherwise, the test will not run. Please refer to the [documentation](https://github.com/ThrowTheSwitch/Unity/blob/master/docs/UnityGettingStartedGuide.md) for more information.
+
+Name of each test function needs to start with `test`. Otherwise, the test function will not be recognized by the test runner, and thus will not run.
 
 ## Recommendation
 
