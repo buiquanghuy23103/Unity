@@ -1,4 +1,4 @@
-CLEANUP = rm -f
+CLEANUP = rm -rf
 TARGET_EXTENSION=.out
 C_COMPILER=gcc
 
@@ -26,10 +26,12 @@ all: clean default
 default: $(TARGETS)
 
 $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c
+	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $^ -o $@
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
+	mkdir -p $(TEST_RUNNER_DIR)
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb $^ $@
 
 clean:
-	$(CLEANUP) $(TARGET_DIR)/*$(TARGET_EXTENSION)
+	$(CLEANUP) $(TARGET_DIR) $(TEST_RUNNER_DIR)
