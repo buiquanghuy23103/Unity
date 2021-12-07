@@ -11,7 +11,7 @@ void	tearDown(void)
 
 static void	TEST_ASSERT_STRNCMP(char *s1, char *s2, size_t n)
 {
-	TEST_ASSERT_EQUAL_INT(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
+	TEST_ASSERT_EQUAL(strncmp(s1, s2, n), ft_strncmp(s1, s2, n));
 }
 
 void	test_when_s1_empty(void)
@@ -41,4 +41,8 @@ void	test_when_s1_partially_equal_s2(void)
 void	test_unsigned_char_conversion(void)
 {
 	TEST_ASSERT_STRNCMP("\200", "\0", 1);
+}
+void	test_basic_input(void)
+{
+	TEST_ASSERT_STRNCMP("cba", "abc", 2);
 }
