@@ -56,3 +56,11 @@ void	test_when_needle_found_but_len_just_big_enough(void)
 
 	ASSERT_STRNSTR(haystack, needle, strlen(needle));
 }
+
+void	test_basic_input(void)
+{
+	char	haystack[] = "Hello les genw";
+	char	needle[] = "Hello";
+
+	ASSERT_STRNSTR(haystack, needle, 3);
+}
