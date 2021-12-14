@@ -83,3 +83,8 @@ void	test_char_c_found_and_n_is_reached_before_c(void)
 	char	src[] = "Well, \200 is larger than";
 	ASSERT_MEMCCPY(src, '\200', 4);
 }
+void	test_when_n_is_one_char_far_from_c(void)
+{
+	char src[] = "string withAinside !";
+	ASSERT_MEMCCPY(src, 'A', 11);
+}
