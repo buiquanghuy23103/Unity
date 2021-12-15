@@ -12,6 +12,7 @@ SRC_DIR=/Users/huybui/core_studies/get_next_line
 CFLAGS = -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
+CFLAGS += -DUNITY_OUTPUT_COLOR
 CFLAGS += -L$(SRC_DIR)/libft -lft
 
 TESTS=$(shell find $(TEST_DIR) -name '*.c')
@@ -28,6 +29,7 @@ default: $(TARGETS)
 $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(SRC_DIR)/libft/libft.a 
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $(SRC_DIR)/get_next_line.c  $^ -o $@
+	$(shell pwd)/$@ | egrep --color=always "Expected|Was"
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
 	mkdir -p $(TEST_RUNNER_DIR)
