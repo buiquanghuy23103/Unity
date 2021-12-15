@@ -19,7 +19,7 @@ TEST_RUNNERS=$(TESTS:$(TEST_DIR)/%.c=$(TEST_RUNNER_DIR)/%_Runner.c)
 TARGETS=$(TESTS:$(TEST_DIR)/%.c=$(TARGET_DIR)/%$(TARGET_EXTENSION))
 
 TEST_LIB=$(UNITY_ROOT)/src/*.c 
-INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR)/libft
+INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR)/libft -I$(SRC_DIR)
 
 all: clean default
 
@@ -27,7 +27,7 @@ default: $(TARGETS)
 
 $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(SRC_DIR)/libft/libft.a 
 	mkdir -p $(TARGET_DIR)
-	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $^ -o $@
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $(SRC_DIR)/get_next_line.c  $^ -o $@
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
 	mkdir -p $(TEST_RUNNER_DIR)
