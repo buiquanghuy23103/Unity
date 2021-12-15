@@ -33,5 +33,5 @@ void	test_medium_string_no_nl(void)
 	dup2(out, 1);
 	gnl_ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING(str, line);
-	TEST_ASSERT_UINT_WITHIN(1, 0, -1);
+	TEST_ASSERT_UINT_WITHIN(1, 0, gnl_ret);
 }
