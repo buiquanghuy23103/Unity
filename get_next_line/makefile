@@ -29,7 +29,7 @@ default: $(TARGETS)
 $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(SRC_DIR)/libft/libft.a 
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $(SRC_DIR)/get_next_line.c  $^ -o $@
-	$(shell pwd)/$@ | egrep --color=always "Expected|Was"
+	$(shell pwd)/$@
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
 	mkdir -p $(TEST_RUNNER_DIR)
