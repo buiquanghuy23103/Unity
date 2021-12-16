@@ -152,7 +152,7 @@ void	test_when_file_not_exist(void)
 
 void	test_when_line_null(void)
 {
-	int fd = open("test0", O_RDONLY);
+	int fd = open("makefile", O_RDONLY);
 
 	TEST_ASSERT_EQUAL_INT(-1, get_next_line(fd, NULL));
 }
