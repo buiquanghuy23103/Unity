@@ -257,3 +257,58 @@ void	test_two_lines_of_16(void)
 	ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_INT(0, ret);
 }
+
+void	test_few_lines_of_16(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+	int		ret;
+
+	out = dup(1);
+	pipe(p);
+
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "abcdefghijklmnop\n", 17);
+	write(fd, "qrstuvwxyzabcdef\n", 17);
+	write(fd, "ghijklmnopqrstuv\n", 17);
+	write(fd, "wxyzabcdefghijkl\n", 17);
+	write(fd, "mnopqrstuvwxyzab\n", 17);
+	write(fd, "cdefghijklmnopqr\n", 17);
+	write(fd, "stuvwxzabcdefghi\n", 17);
+	close(p[1]);
+	dup2(out, fd);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("abcdefghijklmnop", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("qrstuvwxyzabcdef", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("ghijklmnopqrstuv", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("wxyzabcdefghijkl", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("mnopqrstuvwxyzab", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("cdefghijklmnopqr", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("stuvwxzabcdefghi", line);
+	ft_strdel(&line);
+
+	ret = get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_INT(0, ret);
+}
