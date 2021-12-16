@@ -156,3 +156,23 @@ void	test_when_line_null(void)
 
 	TEST_ASSERT_EQUAL_INT(-1, get_next_line(fd, NULL));
 }
+
+void	test_line_of_08_with_nl(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+
+	out = dup(1);
+	pipe(p);
+
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "oiuytrew\n", 9);
+	close(p[1]);
+	dup2(out, fd);
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("oiuytrew", line);
+	ft_strdel(&line);
+}
