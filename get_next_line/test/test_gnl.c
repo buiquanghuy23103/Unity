@@ -419,3 +419,23 @@ void	test_few_lines_of_4(void)
 	ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_INT(0, ret);
 }
+
+void	test_line_no_nl(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+
+	out = dup(1);
+	pipe(p);
+
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "abcd", 4);
+	close(p[1]);
+	dup2(out, fd);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("abcd", line);
+}
