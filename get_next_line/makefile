@@ -2,6 +2,8 @@ CLEANUP = rm -rf
 TARGET_EXTENSION=.out
 C_COMPILER=clang
 
+BUFF_SIZE ?= 8
+
 UNITY_ROOT=..
 
 TEST_DIR=test
@@ -13,6 +15,7 @@ CFLAGS = -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += -DUNITY_OUTPUT_COLOR
+CFLAGS += -DBUFF_SIZE=$(BUFF_SIZE)
 CFLAGS += -L$(SRC_DIR)/libft -lft
 
 TESTS=$(shell find $(TEST_DIR) -name '*.c')
@@ -29,6 +32,7 @@ default: $(TARGETS)
 $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(SRC_DIR)/libft/libft.a 
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $(SRC_DIR)/get_next_line.c  $^ -o $@
+	@printf "\033[1m\033[32mBUFF_SIZE=$(BUFF_SIZE)\033[0m\n"
 	$(shell pwd)/$@
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
