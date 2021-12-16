@@ -312,3 +312,55 @@ void	test_few_lines_of_16(void)
 	ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_INT(0, ret);
 }
+
+void	test_line_of_4(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+	int		ret;
+
+	out = dup(1);
+	pipe(p);
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "abcd\n", 5);
+	close(p[1]);
+	dup2(out, fd);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("abcd", line);
+	ft_strdel(&line);
+	ret = get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_INT(0, ret);
+}
+
+void	test_two_lines_of_4(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+	int		ret;
+
+	out = dup(1);
+	pipe(p);
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "abcd\n", 5);
+	write(fd, "efgh\n", 5);
+	close(p[1]);
+	dup2(out, fd);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("abcd", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("efgh", line);
+	ft_strdel(&line);
+
+	ret = get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_INT(0, ret);
+}
