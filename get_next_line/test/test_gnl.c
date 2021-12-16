@@ -120,19 +120,22 @@ void	test_return_values(void)
 
 	/* Read new line */
 	gnl_ret = get_next_line(p[0], &line);
-	TEST_ASSERT_EMPTY(line);
+	if (line)
+		TEST_ASSERT_EMPTY(line);
 	ft_strdel(&line);
 	TEST_ASSERT_EQUAL_INT(1, gnl_ret);
 
 	/* Read again, but meet EOF */
 	gnl_ret = get_next_line(p[0], &line);
-	TEST_ASSERT_EMPTY(line);
+	if (line)
+		TEST_ASSERT_EMPTY(line);
 	ft_strdel(&line);
 	TEST_ASSERT_EQUAL_INT(0, gnl_ret);
 
 	/* Let's do it once again */
 	gnl_ret = get_next_line(p[0], &line);
-	TEST_ASSERT_EMPTY(line);
+	if (line)
+		TEST_ASSERT_EMPTY(line);
 	ft_strdel(&line);
 	TEST_ASSERT_EQUAL_INT(0, gnl_ret);
 }
