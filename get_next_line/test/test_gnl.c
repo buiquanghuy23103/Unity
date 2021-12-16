@@ -33,6 +33,8 @@ void	test_medium_string_no_nl(void)
 	dup2(out, 1);
 	gnl_ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING(str, line);
+	ft_strdel(&str);
+	ft_strdel(&line);
 	TEST_ASSERT_UINT_WITHIN(1, 0, gnl_ret);
 }
 
@@ -54,15 +56,19 @@ void	test_simple_string(void)
 
 	get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("aaa", line);
+	ft_strdel(&line);
 
 	get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("bbb", line);
+	ft_strdel(&line);
 
 	get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("ccc", line);
+	ft_strdel(&line);
 
 	get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("ddd", line);
+	ft_strdel(&line);
 }
 
 void	test_eof_with_close(void)
@@ -82,5 +88,6 @@ void	test_eof_with_close(void)
 	dup2(out, fd);
 	gnl_ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("aaa", line);
+	ft_strdel(&line);
 	TEST_ASSERT_UINT_WITHIN(1, 0, gnl_ret);
 }
