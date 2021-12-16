@@ -1,6 +1,6 @@
 CLEANUP = rm -rf
 TARGET_EXTENSION=.out
-C_COMPILER=gcc
+C_COMPILER=clang
 
 UNITY_ROOT=..
 
