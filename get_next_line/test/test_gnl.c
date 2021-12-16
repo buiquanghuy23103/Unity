@@ -364,3 +364,58 @@ void	test_two_lines_of_4(void)
 	ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_INT(0, ret);
 }
+
+void	test_few_lines_of_4(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+	int		ret;
+
+	out = dup(1);
+	pipe(p);
+
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "abcd\n", 5);
+	write(fd, "efgh\n", 5);
+	write(fd, "ijkl\n", 5);
+	write(fd, "mnop\n", 5);
+	write(fd, "qrst\n", 5);
+	write(fd, "uvwx\n", 5);
+	write(fd, "yzab\n", 5);
+	close(p[1]);
+	dup2(out, fd);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("abcd", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("efgh", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("ijkl", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("mnop", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("qrst", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("uvwx", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("yzab", line);
+	ft_strdel(&line);
+
+	ret = get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_INT(0, ret);
+}
