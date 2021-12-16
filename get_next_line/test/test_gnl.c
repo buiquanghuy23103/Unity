@@ -1,5 +1,6 @@
 #include "get_next_line.h"
 #include "unity.h"
+#include "testft.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -132,4 +133,26 @@ void	test_return_values(void)
 	TEST_ASSERT_EMPTY(line);
 	ft_strdel(&line);
 	TEST_ASSERT_EQUAL_INT(0, gnl_ret);
+}
+
+void	test_when_fd_negative(void)
+{
+	char	*line = NULL;
+	TEST_ASSERT_EQUAL_INT(-1, get_next_line(-99, &line));
+	TEST_ASSERT_EQUAL_INT(-1, get_next_line(-1, &line));
+	TEST_ASSERT_EQUAL_INT(-1, get_next_line(-10000, &line));
+}
+
+void	test_when_file_not_exist(void)
+{
+	char	*line = NULL;
+
+	TEST_ASSERT_EQUAL_INT(-1, get_next_line(42, &line));
+}
+
+void	test_when_line_null(void)
+{
+	int fd = open("test0", O_RDONLY);
+
+	TEST_ASSERT_EQUAL_INT(-1, get_next_line(fd, NULL));
 }
