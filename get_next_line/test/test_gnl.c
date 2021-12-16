@@ -3,6 +3,7 @@
 #include "testft.h"
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 void	setUp(void)
 {
@@ -560,4 +561,103 @@ void	test_multiple_fd(void)
 	get_next_line(p_fd3[0], &line_fd3);
 	TEST_ASSERT_EQUAL_STRING("999", line_fd3);
 	ft_strdel(&line_fd3);
+}
+
+void	test_hard_medium_string(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	char 	*str;
+	int		len = 50;
+	clock_t	t;
+
+	str = (char *)malloc(1000 * 1000);
+	*str = '\0';
+	while (len--)
+		strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend et, scelerisque non dolor. Suspendisse augue augue, tempus");
+	out = dup(1);
+	pipe(p);
+	dup2(p[1], 1);
+
+	if (str)
+		write(1, str, strlen(str));
+	close(p[1]);
+	dup2(out, 1);
+	t = clock();
+	get_next_line(p[0], &line);
+	t = clock() - t;
+	TEST_ASSERT_EQUAL_STRING(str, line);
+
+	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
+	printf("%s took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
+}
+
+void	test_large_file(void)
+{
+	char *line;
+	int fd;
+	int fd2;
+	int fd3;
+	int	diff_file_size;
+	clock_t	t;
+    
+	fd = open("sandbox/large_file.txt", O_RDONLY);
+	fd2 = open("sandbox/large_file.txt.mine", O_CREAT | O_RDWR | O_TRUNC, 0755);
+
+	t = clock();
+	while (get_next_line(fd, &line) == 1)
+	{
+	    write(fd2, line, strlen(line));
+	    write(fd2, "\n", 1);
+	}
+	t = clock() - t;
+
+	close(fd);
+	close(fd2);
+
+	system("diff sandbox/large_file.txt sandbox/large_file.txt.mine > sandbox/large_file.diff");
+	fd3 = open("sandbox/large_file.diff", O_RDONLY);
+	diff_file_size = read(fd3, NULL, 10);
+	close(fd3);
+
+	TEST_ASSERT_EQUAL_INT(0, diff_file_size);
+
+	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
+	printf("%s took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
+}
+
+void	test_one_big_fat_line(void)
+{
+	char *line;
+	int fd;
+	int fd2;
+	int fd3;
+	int	diff_file_size;
+	clock_t t;
+    
+	fd = open("sandbox/one_big_fat_line.txt", O_RDONLY);
+	fd2 = open("sandbox/one_big_fat_line.txt.mine", O_CREAT | O_RDWR | O_TRUNC, 0755);
+
+	t = clock();
+	while (get_next_line(fd, &line) == 1)
+	{
+	    write(fd2, line, strlen(line));
+	    write(fd2, "\n", 1);
+	}
+	t = clock() - t;
+	if (line)
+		write(fd2, line, strlen(line));
+	close(fd);
+	close(fd2);
+
+	system("diff sandbox/one_big_fat_line.txt sandbox/one_big_fat_line.txt.mine > sandbox/one_big_fat_line.diff");
+	fd3 = open("sandbox/one_big_fat_line.diff", O_RDONLY);
+	diff_file_size = read(fd3, NULL, 10);
+	close(fd3);
+
+	TEST_ASSERT_EQUAL_INT(0, diff_file_size);
+
+	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
+	printf("%s took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
 }
