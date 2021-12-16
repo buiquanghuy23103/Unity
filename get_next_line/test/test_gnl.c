@@ -25,13 +25,14 @@ void	test_medium_string_no_nl(void)
 	strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend et, scelerisque non dolor. Suspendisse augue augue, tempus");
 	strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend et, scelerisque non dolor. Suspendisse augue augue, tempus");
 	strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend et, scelerisque non dolor. Suspendisse augue augue, tempus");
+
 	out = dup(1);
 	pipe(p);
 	dup2(p[1], 1);
-
 	write(1, str, strlen(str));
 	close(p[1]);
 	dup2(out, 1);
+
 	gnl_ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING(str, line);
 	ft_strdel(&str);
@@ -87,6 +88,7 @@ void	test_eof_with_close(void)
 	write(fd, "aaa", 3);
 	close(p[1]);
 	dup2(out, fd);
+
 	gnl_ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("aaa", line);
 	ft_strdel(&line);
@@ -103,7 +105,6 @@ void	test_return_values(void)
 
 	out = dup(1);
 	pipe(p);
-
 	fd = 1;
 	dup2(p[1], fd);
 	write(fd, "abc\n\n", 5);
@@ -172,6 +173,7 @@ void	test_line_of_08_with_nl(void)
 	write(fd, "oiuytrew\n", 9);
 	close(p[1]);
 	dup2(out, fd);
+
 	get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("oiuytrew", line);
 	ft_strdel(&line);
@@ -186,16 +188,17 @@ void	test_two_lines_of_08(void)
 	
 	out = dup(1);
 	pipe(p);
-
 	fd = 1;
 	dup2(p[1], fd);
 	write(fd, "abcdefgh\n", 9);
 	write(fd, "ijklmnop\n", 9);
 	close(p[1]);
 	dup2(out, fd);
+
 	get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("abcdefgh", line);
 	ft_strdel(&line);
+
 	get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("ijklmnop", line);
 	ft_strdel(&line);
@@ -211,15 +214,46 @@ void	test_one_line_of_16_no_nl(void)
 
 	out = dup(1);
 	pipe(p);
-
 	fd = 1;
 	dup2(p[1], fd);
 	write(fd, "abcdefghijklmnop\n", 17);
 	close(p[1]);
 	dup2(out, fd);
+
 	get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING("abcdefghijklmnop", line);
 	ft_strdel(&line);
+
+	ret = get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_INT(0, ret);
+}
+
+void	test_two_lines_of_16(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+	int		ret;
+
+	out = dup(1);
+	pipe(p);
+
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "abcdefghijklmnop\n", 17);
+	write(fd, "qrstuvwxyzabcdef\n", 17);
+	close(p[1]);
+	dup2(out, fd);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("abcdefghijklmnop", line);
+	ft_strdel(&line);
+
+	get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING("qrstuvwxyzabcdef", line);
+	ft_strdel(&line);
+
 	ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_INT(0, ret);
 }
