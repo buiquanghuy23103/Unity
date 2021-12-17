@@ -593,7 +593,7 @@ void	test_hard_medium_string(void)
 	TEST_ASSERT_EQUAL_STRING(str, line);
 
 	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
-	printf("%s took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
+	printf("\033[0;32m%s\033[0m took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
 }
 
 void	test_large_file(void)
@@ -627,7 +627,7 @@ void	test_large_file(void)
 	TEST_ASSERT_EQUAL_INT(0, diff_file_size);
 
 	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
-	printf("%s took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
+	printf("\033[0;32m%s\033[0m took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
 }
 
 void	test_one_big_fat_line(void)
@@ -662,5 +662,5 @@ void	test_one_big_fat_line(void)
 	TEST_ASSERT_EQUAL_INT(0, diff_file_size);
 
 	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
-	printf("%s took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
+	printf("\033[0;32m%s\033[0m took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
 }
