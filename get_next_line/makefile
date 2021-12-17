@@ -9,7 +9,7 @@ UNITY_ROOT=..
 TEST_DIR=test
 TEST_RUNNER_DIR=test_runners
 TARGET_DIR=targets
-SRC_DIR=/Users/huybui/core_studies/get_next_line
+SRC_DIR=/Volumes/MacintoshHD2/huybui/HIVE/hive_code/get_next_line
 
 CFLAGS = -Wall
 CFLAGS += -Wextra
@@ -34,7 +34,7 @@ $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.
 ifneq ($(BUFF_SIZE), 0)
 	@printf "\033[1m\033[32mBUFF_SIZE=$(BUFF_SIZE)\033[0m\n"
 endif
-	$(shell pwd)/$@
+	$(MEM_CHECK) $(shell pwd)/$@
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
 	mkdir -p $(TEST_RUNNER_DIR)
@@ -48,3 +48,6 @@ clean:
 
 buff: CFLAGS += -DBUFF_SIZE=$(BUFF_SIZE)
 buff: clean default
+
+mem: MEM_CHECK=valgrind --track-origins=yes
+mem: clean default

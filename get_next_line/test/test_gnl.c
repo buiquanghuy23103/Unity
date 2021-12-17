@@ -582,15 +582,18 @@ void	test_hard_medium_string(void)
 	out = dup(1);
 	pipe(p);
 	dup2(p[1], 1);
-
 	if (str)
 		write(1, str, strlen(str));
 	close(p[1]);
 	dup2(out, 1);
+
 	t = clock();
 	get_next_line(p[0], &line);
 	t = clock() - t;
+
 	TEST_ASSERT_EQUAL_STRING(str, line);
+	ft_strdel(&str);
+	ft_strdel(&line);
 
 	double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
 	printf("\033[0;32m%s\033[0m took \033[0;32m%f\033[0m seconds to execute \n", __func__, time_taken);
@@ -612,16 +615,19 @@ void	test_large_file(void)
 	while (get_next_line(fd, &line) == 1)
 	{
 	    write(fd2, line, strlen(line));
+		ft_strdel(&line);
 	    write(fd2, "\n", 1);
 	}
 	t = clock() - t;
+	ft_strdel(&line);
 
 	close(fd);
 	close(fd2);
 
 	system("diff sandbox/large_file.txt sandbox/large_file.txt.mine > sandbox/large_file.diff");
 	fd3 = open("sandbox/large_file.diff", O_RDONLY);
-	diff_file_size = read(fd3, NULL, 10);
+	line = ""; // prevent "read(buf) points to unaddressable byte(s)" of valgrind"
+	diff_file_size = read(fd3, line, 10);
 	close(fd3);
 
 	TEST_ASSERT_EQUAL_INT(0, diff_file_size);
@@ -646,17 +652,22 @@ void	test_one_big_fat_line(void)
 	while (get_next_line(fd, &line) == 1)
 	{
 	    write(fd2, line, strlen(line));
+		ft_strdel(&line);
 	    write(fd2, "\n", 1);
 	}
 	t = clock() - t;
 	if (line)
+	{
 		write(fd2, line, strlen(line));
+		ft_strdel(&line);
+	}
 	close(fd);
 	close(fd2);
 
 	system("diff sandbox/one_big_fat_line.txt sandbox/one_big_fat_line.txt.mine > sandbox/one_big_fat_line.diff");
 	fd3 = open("sandbox/one_big_fat_line.diff", O_RDONLY);
-	diff_file_size = read(fd3, NULL, 10);
+	line = ""; // prevent "read(buf) points to unaddressable byte(s)" of valgrind"
+	diff_file_size = read(fd3, line, 10);
 	close(fd3);
 
 	TEST_ASSERT_EQUAL_INT(0, diff_file_size);
