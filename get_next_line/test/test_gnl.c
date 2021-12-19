@@ -176,14 +176,14 @@ void	test_return_values_when_line_equal_buff_size_and_no_newline(void)
 	if (line)
 		TEST_ASSERT_EMPTY(line);
 	ft_strdel(&line);
-	TEST_ASSERT_EQUAL_INT(0, gnl_ret, "Your function should return 0 when there is nothing to read");
+	TEST_ASSERT_EQUAL_INT_MESSAGE(0, gnl_ret, "Your function should return 0 when there is nothing to read");
 
 	/* Let's do it once again */
 	gnl_ret = get_next_line(p[0], &line);
 	if (line)
 		TEST_ASSERT_EMPTY(line);
 	ft_strdel(&line);
-	TEST_ASSERT_EQUAL_INT(0, gnl_ret, "Your function should continue returning 0, when EOF is met");
+	TEST_ASSERT_EQUAL_INT_MESSAGE(0, gnl_ret, "Your function should continue returning 0, when EOF is met");
 }
 
 void	test_when_fd_negative(void)
