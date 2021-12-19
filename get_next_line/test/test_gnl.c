@@ -150,6 +150,8 @@ void	test_return_values_when_line_equal_buff_size_and_no_newline(void)
 	char	*str;
 	int		i;
 
+	if (BUFF_SIZE > 10000)
+		TEST_IGNORE_MESSAGE("Ignore this test because BUFF_SIZE is too large");
 	str = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	i = 0;
 	str[BUFF_SIZE] = '\0';
