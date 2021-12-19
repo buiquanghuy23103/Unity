@@ -140,6 +140,52 @@ void	test_return_values(void)
 	TEST_ASSERT_EQUAL_INT(0, gnl_ret);
 }
 
+void	test_return_values_when_line_equal_buff_size_and_no_newline(void)
+{
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+	int		gnl_ret;
+	char	*str;
+	int		i;
+
+	str = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
+	i = 0;
+	str[BUFF_SIZE] = '\0';
+	while (i < BUFF_SIZE)
+	{
+		str[i] = ' ' + i % 93;
+		i++;
+	}
+	out = dup(1);
+	pipe(p);
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, str, BUFF_SIZE);
+	close(p[1]);
+	dup2(out, fd);
+
+	gnl_ret = get_next_line(p[0], &line);
+	TEST_ASSERT_EQUAL_STRING(str, line);
+	ft_strdel(&line);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(1, gnl_ret, "Your function should return 1 after reading the last line");
+
+	/* Read again, but meet EOF */
+	gnl_ret = get_next_line(p[0], &line);
+	if (line)
+		TEST_ASSERT_EMPTY(line);
+	ft_strdel(&line);
+	TEST_ASSERT_EQUAL_INT(0, gnl_ret, "Your function should return 0 when there is nothing to read");
+
+	/* Let's do it once again */
+	gnl_ret = get_next_line(p[0], &line);
+	if (line)
+		TEST_ASSERT_EMPTY(line);
+	ft_strdel(&line);
+	TEST_ASSERT_EQUAL_INT(0, gnl_ret, "Your function should continue returning 0, when EOF is met");
+}
+
 void	test_when_fd_negative(void)
 {
 	char	*line = NULL;
