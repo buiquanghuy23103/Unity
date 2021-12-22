@@ -2,8 +2,9 @@ CLEANUP = rm -rf
 TARGET_EXTENSION=.out
 C_COMPILER=clang
 
-UNITY_ROOT=..
+PATTERN ?= .c$$
 
+UNITY_ROOT=..
 TEST_DIR=test
 TEST_RUNNER_DIR=test_runners
 TARGET_DIR=targets
@@ -15,7 +16,7 @@ CFLAGS += -Werror
 CFLAGS += -DUNITY_OUTPUT_COLOR
 CFLAGS += -L$(LIBFT_DIR) -lft
 
-TESTS=$(shell find $(TEST_DIR) -name '*.c')
+TESTS=$(shell find $(TEST_DIR) -name '*.c' -follow -print | grep $(PATTERN))
 TEST_RUNNERS=$(TESTS:$(TEST_DIR)/%.c=$(TEST_RUNNER_DIR)/%_Runner.c)
 TARGETS=$(TESTS:$(TEST_DIR)/%.c=$(TARGET_DIR)/%$(TARGET_EXTENSION))
 
@@ -26,7 +27,7 @@ all: clean default
 
 default: $(TARGETS)
 
-$(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(LIBFT_DIR)/libft.a
+$(TARGETS): $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(LIBFT_DIR)/libft.a
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $^ -o $@
 	$(shell pwd)/$@
