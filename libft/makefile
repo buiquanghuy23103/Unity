@@ -13,6 +13,7 @@ TEST_DIR=test
 TEST_RUNNER_DIR=test_runners
 TARGET_DIR=targets
 LIBFT_DIR=/Users/huybui/core_studies/libft
+LOG=log
 
 CFLAGS = -Wall
 CFLAGS += -Wextra
@@ -34,7 +35,7 @@ default: $(TARGETS)
 $(TARGETS): $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(LIBFT_DIR)/libft.a
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $^ -o $@
-	$(shell pwd)/$@ >> result.log && printf "$@: $(GREEN)OK$(RESET)\n" || printf "$@ $(RED)FAIL$(RESET)\n"
+	$(shell pwd)/$@ >> $(LOG) && printf "$@: $(GREEN)OK$(RESET)\n" || printf "$@ $(RED)FAIL$(RESET)\n"
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
 	mkdir -p $(TEST_RUNNER_DIR)
@@ -44,4 +45,4 @@ $(LIBFT_DIR)/libft.a: $(LIBFT_DIR)/*.c $(LIBFT_DIR)/*.h
 	make -s -C $(LIBFT_DIR) fclean && make -s -C $(LIBFT_DIR)
 
 clean:
-	$(CLEANUP) $(TARGET_DIR) $(TEST_RUNNER_DIR)
+	$(CLEANUP) $(TARGET_DIR) $(TEST_RUNNER_DIR) $(LOG)
