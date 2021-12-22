@@ -1,4 +1,5 @@
 test_runners
 targets
-libft.a
-libft.h
+sandbox/*.diff
+sandbox/*.mine
+result.log
