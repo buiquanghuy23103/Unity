@@ -36,7 +36,7 @@ $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c
 	mkdir -p $(TEST_RUNNER_DIR)
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb $^ $@
 
-$(LIBFT_DIR)/libft.a:
+$(LIBFT_DIR)/libft.a: $(LIBFT_DIR)/*.c $(LIBFT_DIR)/*.h
 	make -s -C $(LIBFT_DIR) fclean && make -s -C $(LIBFT_DIR)
 
 clean:
