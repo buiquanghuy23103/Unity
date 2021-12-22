@@ -2,6 +2,10 @@ CLEANUP = rm -rf
 TARGET_EXTENSION=.out
 C_COMPILER=clang
 
+RED=\e[0;31m
+GREEN=\e[0;32m
+RESET=\e[0m
+
 PATTERN ?= .c$$
 
 UNITY_ROOT=..
@@ -30,7 +34,7 @@ default: $(TARGETS)
 $(TARGETS): $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(LIBFT_DIR)/libft.a
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $^ -o $@
-	$(shell pwd)/$@
+	$(shell pwd)/$@ >> result.log && printf "$@: $(GREEN)OK$(RESET)\n" || printf "$@ $(RED)FAIL$(RESET)\n"
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
 	mkdir -p $(TEST_RUNNER_DIR)
