@@ -2,4 +2,4 @@ test_runners
 targets
 sandbox/*.diff
 sandbox/*.mine
-result.log
+log
