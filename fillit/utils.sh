@@ -16,11 +16,6 @@ SRC_DIR=/Users/huybui/core_studies/fillit
 EXE=$SRC_DIR/fillit
 ACTUAL=actual.log
 
-SET_UP_TEST() {
-	echo "error" > error
-	chmod a+x error
-}
-
 print_ok() {
 	printf "${GREEN}OK${RESET}\n"
 }
