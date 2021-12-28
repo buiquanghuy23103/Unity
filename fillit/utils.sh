@@ -22,6 +22,8 @@ print_ok() {
 
 should_print_error() {
 	$EXE $1 > $ACTUAL
+	printf "${RED}"
 	diff error $ACTUAL && print_ok
+	printf "${RESET}"
 	rm $ACTUAL
 }
