@@ -4,6 +4,9 @@ source ./utils.sh
 
 make -s -C $SRC_DIR
 
+printf "NORM: "
+norminette $SRC_DIR > /dev/null && print_ok || print_fail
+
 printf "print error when file does not exist: "
 should_print_error 42.txt
 

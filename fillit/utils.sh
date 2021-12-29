@@ -20,6 +20,10 @@ print_ok() {
 	printf "${GREEN}OK${RESET}\n"
 }
 
+print_fail() {
+	printf "${RED}FAIL${RESET}\n"
+}
+
 should_print_error() {
 	should_be_the_same $1 error
 }
