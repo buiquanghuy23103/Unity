@@ -48,3 +48,6 @@ should_be_the_same one_tetrimino.txt one_tetrimino.txt.correct
 
 printf "4 Tetriminos: "
 should_be_the_same four_tetriminos.txt four_tetriminos.txt.correct
+
+printf "8 Tetriminos: "
+should_be_the_same eight_tetriminos.txt eight_tetriminos.txt.correct
