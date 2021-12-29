@@ -42,3 +42,9 @@ should_print_error blocks_not_stick_together_1.txt
 
 printf "print error when blocks are not stick together (2): "
 should_print_error blocks_not_stick_together_2.txt
+
+printf "basic input with only 1 Tetrimino: "
+should_be_the_same basic_input_one_block.txt basic_input_one_block.txt.correct
+
+printf "basic input with 4 Tetriminos: "
+should_be_the_same basic_input_four_block.txt basic_input_four_block.txt.correct
