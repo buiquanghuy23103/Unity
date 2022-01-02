@@ -8,49 +8,49 @@ printf "NORM: "
 norminette $SRC_DIR > /dev/null && print_ok || print_fail
 
 printf "print error when file does not exist: "
-should_print_error 42.txt
+should_print_error sandbox/42.txt
 
 printf "print error when file is empty: "
-should_print_error empty.txt
+should_print_error sandbox/empty.txt
 
 printf "print error when line length > 4: "
-should_print_error too_wide.txt
+should_print_error sandbox/too_wide.txt
 
 printf "print error when line length < 4: "
-should_print_error too_narrow.txt
+should_print_error sandbox/too_narrow.txt
 
 printf "print error when more than 4 lines: "
-should_print_error too_high.txt
+should_print_error sandbox/too_high.txt
 
 printf "print error when less than 4 lines: "
-should_print_error too_short.txt
+should_print_error sandbox/too_short.txt
 
 printf "print error when there is no newline separating 4x4 square: "
-should_print_error no_nl_separator.txt
+should_print_error sandbox/no_nl_separator.txt
 
 printf "print error when there are too many newlines separating 4x4 square: "
-should_print_error too_many_nl.txt
+should_print_error sandbox/too_many_nl.txt
 
 printf "print error when there are more than 4 blocks: "
-should_print_error more_than_4_blocks.txt
+should_print_error sandbox/more_than_4_blocks.txt
 
 printf "print error when there are less than 4 blocks: "
-should_print_error less_than_4_blocks.txt
+should_print_error sandbox/less_than_4_blocks.txt
 
 printf "print error when there is an invalid char: "
-should_print_error invalid_char.txt
+should_print_error sandbox/invalid_char.txt
 
 printf "print error when blocks are not stick together (1): "
-should_print_error blocks_not_stick_together_1.txt
+should_print_error sandbox/blocks_not_stick_together_1.txt
 
 printf "print error when blocks are not stick together (2): "
-should_print_error blocks_not_stick_together_2.txt
+should_print_error sandbox/blocks_not_stick_together_2.txt
 
 printf "1 Tetrimino: "
-should_be_the_same one_tetrimino.txt one_tetrimino.txt.correct
+should_be_the_same sandbox/one_tetrimino.txt sandbox/one_tetrimino.txt.correct
 
 printf "4 Tetriminos: "
-should_be_the_same four_tetriminos.txt four_tetriminos.txt.correct
+should_be_the_same sandbox/four_tetriminos.txt sandbox/four_tetriminos.txt.correct
 
 printf "8 Tetriminos: "
-should_be_the_same eight_tetriminos.txt eight_tetriminos.txt.correct
+should_be_the_same sandbox/eight_tetriminos.txt sandbox/eight_tetriminos.txt.correct
