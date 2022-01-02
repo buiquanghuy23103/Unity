@@ -12,7 +12,7 @@ CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 RESET='\033[0m'
 
-SRC_DIR=/Users/huybui/core_studies/fillit
+SRC_DIR=../../fillit
 EXE=$SRC_DIR/fillit
 ACTUAL=actual.log
 
