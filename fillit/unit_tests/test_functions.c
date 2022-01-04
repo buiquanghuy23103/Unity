@@ -89,40 +89,52 @@ void	test_bit_arr(void)
 
 void	test_ft_top(void)
 {
-	int	actual[16];
-	int	expected[16];
+	int	actual[18];
+	int	expected[18];
 
 	bzero(actual, sizeof(actual));
-	bzero(expected, sizeof(expected));
 	actual[3] = 1;
 	actual[4] = 1;
 	actual[5] = 1;
 	actual[6] = 1;
+	actual[SIZE] = 6;
+	actual[SROW] = 3;
+
+	bzero(expected, sizeof(expected));
 	expected[0] = 1;
 	expected[1] = 1;
 	expected[2] = 1;
 	expected[3] = 1;
+	expected[SIZE] = 6;
+	expected[SROW] = 0;
+
 	ft_top(actual);
-	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 16);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 18);
 }
 
 void	test_ft_left(void)
 {
-	int	actual[16];
-	int	expected[16];
+	int	actual[18];
+	int	expected[18];
 
 	bzero(actual, sizeof(actual));
-	bzero(expected, sizeof(expected));
-	actual[0] = 1;
-	actual[1] = 1;
-	actual[2] = 1;
 	actual[3] = 1;
-	expected[0] = 32;
-	expected[1] = 32;
-	expected[2] = 32;
+	actual[4] = 1;
+	actual[5] = 1;
+	actual[6] = 1;
+	actual[SIZE] = 6;
+	actual[SROW] = 3;
+
+	bzero(expected, sizeof(expected));
 	expected[3] = 32;
-	ft_left(actual, 6);
-	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 16);
+	expected[4] = 32;
+	expected[5] = 32;
+	expected[6] = 32;
+	expected[SIZE] = 6;
+	expected[SROW] = 3;
+
+	ft_left(actual);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 18);
 }
 
 void	test_ft_print_tetrimino(void)
@@ -133,7 +145,6 @@ void	test_ft_print_tetrimino(void)
 	int			copy_out;
 	char		*expected;
 
-	a->tcount = 4;
 	ft_inil_tetr(a, size);
 
 	expected = "DDAA\nCDDA\nCCCA\nBBBB\n";
@@ -153,6 +164,8 @@ void	test_ft_print_tetrimino(void)
 	a->tmino[3][0] = 0b1100;
 	a->tmino[3][1] = 0b0110;
 	a->tmino[3][SROW] = 0;
+
+	a->tcount = 4;
 
 	init_redirect(&fd, &copy_out);
 	ft_print_tetriminos(a);
