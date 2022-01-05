@@ -87,18 +87,19 @@ void	test_bit_arr(void)
 	TEST_ASSERT_EQUAL_INT(0, diff);
 }
 
-void	test_ft_top(void)
+void	test_ft_top_overlap(void)
 {
-	int	actual[18];
-	int	expected[18];
+	int	actual[19];
+	int	expected[19];
 
 	bzero(actual, sizeof(actual));
+	actual[2] = 1;
 	actual[3] = 1;
 	actual[4] = 1;
 	actual[5] = 1;
-	actual[6] = 1;
 	actual[SIZE] = 6;
-	actual[SROW] = 3;
+	actual[SROW] = 2;
+	actual[HEIGHT] = 4;
 
 	bzero(expected, sizeof(expected));
 	expected[0] = 1;
@@ -107,15 +108,44 @@ void	test_ft_top(void)
 	expected[3] = 1;
 	expected[SIZE] = 6;
 	expected[SROW] = 0;
+	expected[HEIGHT] = 4;
 
 	ft_top(actual);
-	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 18);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 19);
+}
+
+
+void	test_move_top_from_bottom(void)
+{
+	int	actual[19];
+	int	expected[19];
+
+	bzero(actual, sizeof(actual));
+	actual[12] = 1;
+	actual[13] = 1;
+	actual[14] = 1;
+	actual[15] = 1;
+	actual[SIZE] = 6;
+	actual[SROW] = 12;
+	actual[HEIGHT] = 4;
+
+	bzero(expected, sizeof(expected));
+	expected[0] = 1;
+	expected[1] = 1;
+	expected[2] = 1;
+	expected[3] = 1;
+	expected[SIZE] = 6;
+	expected[SROW] = 0;
+	expected[HEIGHT] = 4;
+
+	ft_top(actual);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 19);
 }
 
 void	test_ft_left(void)
 {
-	int	actual[18];
-	int	expected[18];
+	int	actual[19];
+	int	expected[19];
 
 	bzero(actual, sizeof(actual));
 	actual[3] = 1;
@@ -124,6 +154,7 @@ void	test_ft_left(void)
 	actual[6] = 1;
 	actual[SIZE] = 6;
 	actual[SROW] = 3;
+	actual[HEIGHT] = 4;
 
 	bzero(expected, sizeof(expected));
 	expected[3] = 32;
@@ -132,9 +163,10 @@ void	test_ft_left(void)
 	expected[6] = 32;
 	expected[SIZE] = 6;
 	expected[SROW] = 3;
+	expected[HEIGHT] = 4;
 
 	ft_left(actual);
-	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 18);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 19);
 }
 
 void	test_ft_print_tetrimino(void)
@@ -153,17 +185,21 @@ void	test_ft_print_tetrimino(void)
 	a->tmino[0][1] = 0b0001;
 	a->tmino[0][2] = 0b0001;
 	a->tmino[0][SROW] = 0;
+	a->tmino[0][HEIGHT] = 3;
 
 	a->tmino[1][3] = 0b1111;
 	a->tmino[1][SROW] = 3;
+	a->tmino[1][HEIGHT] = 1;
 
 	a->tmino[2][1] = 0b1000;
 	a->tmino[2][2] = 0b1110;
 	a->tmino[2][SROW] = 1;
+	a->tmino[2][HEIGHT] = 2;
 
 	a->tmino[3][0] = 0b1100;
 	a->tmino[3][1] = 0b0110;
 	a->tmino[3][SROW] = 0;
+	a->tmino[3][HEIGHT] = 2;
 
 	a->tcount = 4;
 
@@ -172,4 +208,104 @@ void	test_ft_print_tetrimino(void)
 	reset_output(&copy_out);
 
 	TEST_ASSERT_FILE_CONTENT(expected, fd);
+}
+
+void	test_ft_right_not_doable(void)
+{
+	int	actual[19];
+	int	expected[19];
+	int	ret;
+
+	bzero(actual, sizeof(actual));
+	actual[3] = 0b110;
+	actual[4] = 0b011;
+	actual[SIZE] = 6;
+	actual[SROW] = 3;
+	actual[HEIGHT] = 2;
+
+	bzero(expected, sizeof(expected));
+	expected[3] = 0b110;
+	expected[4] = 0b011;
+	expected[SIZE] = 6;
+	expected[SROW] = 3;
+	expected[HEIGHT] = 2;
+
+	ret = ft_right(actual);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 19);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "should return 0 if cannot move right");
+}
+
+void	test_ft_right_doable(void)
+{
+	int	actual[19];
+	int	expected[19];
+	int	ret;
+
+	bzero(actual, sizeof(actual));
+	actual[3] = 0b1100;
+	actual[4] = 0b0110;
+	actual[SIZE] = 6;
+	actual[SROW] = 3;
+	actual[HEIGHT] = 2;
+
+	bzero(expected, sizeof(expected));
+	expected[3] = 0b110;
+	expected[4] = 0b011;
+	expected[SIZE] = 6;
+	expected[SROW] = 3;
+	expected[HEIGHT] = 2;
+
+	ret = ft_right(actual);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 19);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(1, ret, "should return 1 if moving right succeed");
+}
+
+void	test_ft_down_doable(void)
+{
+	int	actual[19];
+	int	expected[19];
+	int	ret;
+
+	bzero(actual, sizeof(actual));
+	actual[13] = 0b110;
+	actual[14] = 0b011;
+	actual[SIZE] = 6;
+	actual[SROW] = 13;
+	actual[HEIGHT] = 2;
+
+	bzero(expected, sizeof(expected));
+	expected[14] = 0b110;
+	expected[15] = 0b011;
+	expected[SIZE] = 6;
+	expected[SROW] = 14;
+	expected[HEIGHT] = 2;
+
+	ret = ft_down(actual);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 19);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(1, ret, "should return 1 if moving down succeeds");
+}
+
+void	test_ft_down_not_doable(void)
+{
+	int	actual[19];
+	int	expected[19];
+	int	ret;
+
+	bzero(actual, sizeof(actual));
+	actual[14] = 0b110;
+	actual[15] = 0b011;
+	actual[SIZE] = 6;
+	actual[SROW] = 14;
+	actual[HEIGHT] = 2;
+
+	bzero(expected, sizeof(expected));
+	expected[14] = 0b110;
+	expected[15] = 0b011;
+	expected[SIZE] = 6;
+	expected[SROW] = 14;
+	expected[HEIGHT] = 2;
+
+	ret = ft_down(actual);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 19);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "should return 0 if moving down fails");
 }
