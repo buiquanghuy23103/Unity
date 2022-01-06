@@ -52,11 +52,17 @@ should_print_error sandbox/blocks_not_stick_together_2.txt
 printf "1 Tetrimino: "
 should_be_the_same sandbox/one_tetrimino.txt sandbox/one_tetrimino.txt.correct
 
+printf "2 Tetriminos: "
+should_be_the_same sandbox/two_tetriminos.txt sandbox/two_tetriminos.txt.correct
+
 printf "4 Tetriminos: "
 should_be_the_same sandbox/four_tetriminos.txt sandbox/four_tetriminos.txt.correct
 
 printf "8 Tetriminos: "
 should_be_the_same sandbox/eight_tetriminos.txt sandbox/eight_tetriminos.txt.correct
+
+printf "9 Tetriminos: "
+should_be_the_same sandbox/nine_tetriminos.txt sandbox/nine_tetriminos.txt.correct
 
 printf "26 Tetriminos: "
 should_be_the_same sandbox/max.txt sandbox/max.txt.correct
