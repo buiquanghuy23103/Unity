@@ -334,3 +334,24 @@ void	test_ft_down_not_doable_1(void)
 	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 19);
 	TEST_ASSERT_EQUAL_INT_MESSAGE(0, ret, "should return 0 if moving down fails");
 }
+
+void	test_place_tetrimino(void)
+{
+	int	tetr[19];
+	int	expected[19];
+	int	actual[16];
+
+	bzero(tetr, sizeof(tetr));
+	tetr[14] = 0b110;
+	tetr[15] = 0b011;
+	tetr[SIZE] = 16;
+	tetr[SROW] = 14;
+	tetr[HEIGHT] = 2;
+
+	bzero(expected, sizeof(expected));
+	expected[14] = 0b110;
+	expected[15] = 0b011;
+
+	ft_place_piece(actual, tetr);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 16);
+}
