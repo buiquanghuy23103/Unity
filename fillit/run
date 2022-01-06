@@ -4,6 +4,9 @@ source ./utils.sh
 
 make -s -C $SRC_DIR
 
+printf "UNIT TEST: "
+make -s
+
 printf "NORM: "
 norminette $SRC_DIR > /dev/null && print_ok || print_fail
 
@@ -54,3 +57,6 @@ should_be_the_same sandbox/four_tetriminos.txt sandbox/four_tetriminos.txt.corre
 
 printf "8 Tetriminos: "
 should_be_the_same sandbox/eight_tetriminos.txt sandbox/eight_tetriminos.txt.correct
+
+printf "26 Tetriminos: "
+should_be_the_same sandbox/max.txt sandbox/max.txt.correct
