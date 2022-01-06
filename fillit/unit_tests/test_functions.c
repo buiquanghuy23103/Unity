@@ -404,3 +404,41 @@ void	test_remove_tetrimino(void)
 
 	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 16);
 }
+
+void	test_check_fit(void)
+{
+	int	tetr[19];
+	int	solution[16];
+
+	bzero(tetr, sizeof(tetr));
+	tetr[14] = 0b110;
+	tetr[15] = 0b011;
+	tetr[SIZE] = 16;
+	tetr[SROW] = 14;
+	tetr[HEIGHT] = 2;
+
+	bzero(solution, sizeof(solution));
+	solution[13] = 0b011;
+	solution[14] = 0b011;
+
+	TEST_ASSERT_EQUAL_INT(0, ft_check_fit(solution, tetr));
+}
+
+void	test_check_fit_2(void)
+{
+	int	tetr[19];
+	int	solution[16];
+
+	bzero(tetr, sizeof(tetr));
+	tetr[14] = 0b110;
+	tetr[15] = 0b011;
+	tetr[SIZE] = 16;
+	tetr[SROW] = 14;
+	tetr[HEIGHT] = 2;
+
+	bzero(solution, sizeof(solution));
+	solution[13] = 0b111;
+	solution[14] = 0b001;
+
+	TEST_ASSERT_EQUAL_INT(1, ft_check_fit(solution, tetr));
+}
