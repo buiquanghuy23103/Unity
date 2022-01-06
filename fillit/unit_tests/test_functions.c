@@ -338,7 +338,7 @@ void	test_ft_down_not_doable_1(void)
 void	test_place_tetrimino(void)
 {
 	int	tetr[19];
-	int	expected[19];
+	int	expected[16];
 	int	actual[16];
 
 	bzero(tetr, sizeof(tetr));
@@ -352,6 +352,55 @@ void	test_place_tetrimino(void)
 	expected[14] = 0b110;
 	expected[15] = 0b011;
 
+	bzero(actual, sizeof(actual));
+
 	ft_place_piece(actual, tetr);
+	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 16);
+}
+
+void	test_remove_tetrimino(void)
+{
+	const int	size = 4;
+	t_tetr		a[1];
+	int			actual[16];
+	int			expected[16];
+
+	ft_inil_tetr(a, size);
+	bzero(actual, sizeof(actual));
+	bzero(expected, sizeof(expected));
+
+	a->tmino[0][0] = 0b0011;
+	a->tmino[0][1] = 0b0001;
+	a->tmino[0][2] = 0b0001;
+	a->tmino[0][SROW] = 0;
+	a->tmino[0][HEIGHT] = 3;
+
+	a->tmino[1][3] = 0b1111;
+	a->tmino[1][SROW] = 3;
+	a->tmino[1][HEIGHT] = 1;
+
+	a->tmino[2][1] = 0b1000;
+	a->tmino[2][2] = 0b1110;
+	a->tmino[2][SROW] = 1;
+	a->tmino[2][HEIGHT] = 2;
+
+	a->tmino[3][0] = 0b1100;
+	a->tmino[3][1] = 0b0110;
+	a->tmino[3][SROW] = 0;
+	a->tmino[3][HEIGHT] = 2;
+
+	a->tcount = 4;
+
+	ft_place_piece(actual, a->tmino[0]);
+	ft_place_piece(actual, a->tmino[1]);
+	ft_place_piece(actual, a->tmino[2]);
+	ft_place_piece(actual, a->tmino[3]);
+
+	ft_place_piece(expected, a->tmino[0]);
+	ft_place_piece(expected, a->tmino[2]);
+	ft_place_piece(expected, a->tmino[3]);
+
+	ft_remove_piece(actual, a->tmino[1]);
+
 	TEST_ASSERT_EQUAL_INT_ARRAY(expected, actual, 16);
 }
