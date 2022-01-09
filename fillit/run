@@ -4,9 +4,6 @@ source ./utils.sh
 
 make -s -C $SRC_DIR
 
-printf "UNIT TEST: "
-make -s
-
 printf "NORM: "
 norminette $SRC_DIR > /dev/null && print_ok || print_fail
 
@@ -49,11 +46,17 @@ should_print_error sandbox/blocks_not_stick_together_1.txt
 printf "print error when blocks are not stick together (2): "
 should_print_error sandbox/blocks_not_stick_together_2.txt
 
-printf "1 Tetrimino: "
+printf "1 Tetrimino (1): "
 should_be_the_same sandbox/one_tetrimino.txt sandbox/one_tetrimino.txt.correct
 
-printf "2 Tetriminos: "
+printf "1 Tetrimino (2): "
+should_be_the_same sandbox/one_tetrimino_2.txt sandbox/one_tetrimino_2.txt.correct
+
+printf "2 Tetriminos (1): "
 should_be_the_same sandbox/two_tetriminos.txt sandbox/two_tetriminos.txt.correct
+
+printf "2 Tetrimino (2): "
+should_be_the_same sandbox/two_tetriminos_2.txt sandbox/two_tetriminos_2.txt.correct
 
 printf "4 Tetriminos: "
 should_be_the_same sandbox/four_tetriminos.txt sandbox/four_tetriminos.txt.correct
@@ -64,5 +67,8 @@ should_be_the_same sandbox/eight_tetriminos.txt sandbox/eight_tetriminos.txt.cor
 printf "9 Tetriminos: "
 should_be_the_same sandbox/nine_tetriminos.txt sandbox/nine_tetriminos.txt.correct
 
+printf "X tetriminos: "
+should_be_the_same_with_time sandbox/x_tetriminos.txt sandbox/x_tetriminos.txt.correct
+
 printf "26 Tetriminos: "
-should_be_the_same sandbox/max.txt sandbox/max.txt.correct
+should_be_the_same_with_time sandbox/max.txt sandbox/max.txt.correct

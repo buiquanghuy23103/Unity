@@ -35,3 +35,11 @@ should_be_the_same() {
 	printf "${RESET}"
 	rm $ACTUAL
 }
+
+should_be_the_same_with_time() {
+	time $EXE $1 > $ACTUAL
+	printf "${RED}"
+	diff $2 $ACTUAL && print_ok
+	printf "${RESET}"
+	rm $ACTUAL
+}
