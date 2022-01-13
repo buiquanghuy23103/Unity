@@ -37,6 +37,9 @@ should_print_error sandbox/more_than_4_blocks.txt
 printf "print error when there are less than 4 blocks: "
 should_print_error sandbox/less_than_4_blocks.txt
 
+printf "print error when there is no blocks"
+should_print_error sandbox/no_blocks.txt
+
 printf "print error when there is an invalid char: "
 should_print_error sandbox/invalid_char.txt
 
