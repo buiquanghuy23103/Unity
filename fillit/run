@@ -61,6 +61,9 @@ should_be_the_same sandbox/two_tetriminos_2.txt sandbox/two_tetriminos_2.txt.cor
 printf "4 Tetriminos: "
 should_be_the_same sandbox/four_tetriminos.txt sandbox/four_tetriminos.txt.correct
 
+printf "6 Tetriminos: "
+should_be_the_same sandbox/6_pieces.txt sandbox/6_pieces.txt.correct
+
 printf "8 Tetriminos: "
 should_be_the_same sandbox/eight_tetriminos.txt sandbox/eight_tetriminos.txt.correct
 
