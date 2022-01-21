@@ -2,6 +2,11 @@
 
 source ./utils.sh
 
+if [[ -z $SRC_DIR ]]; then
+	printf "usage:\t./run fillit_directory\n"
+	exit 1
+fi
+
 make -s -C $SRC_DIR
 
 printf "NORM: "

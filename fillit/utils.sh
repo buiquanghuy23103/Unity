@@ -12,7 +12,7 @@ CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 RESET='\033[0m'
 
-SRC_DIR=../../fillit
+SRC_DIR=$1
 EXE=$SRC_DIR/fillit
 ACTUAL=actual.log
 
