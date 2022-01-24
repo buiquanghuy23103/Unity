@@ -13,9 +13,8 @@ CFLAGS = -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += -DUNITY_OUTPUT_COLOR
-CFLAGS += -L$(SRC_DIR)/libft -lft
+CFLAGS += -L$(SRC_DIR) -lftprintf
 
-SRCS=$(shel find $(SRC_DIR) -name '*.c')
 TESTS=$(shell find $(TEST_DIR) -name '*.c')
 TEST_RUNNERS=$(TESTS:$(TEST_DIR)/%.c=$(TEST_RUNNER_DIR)/%_Runner.c)
 TARGETS=$(TESTS:$(TEST_DIR)/%.c=$(TARGET_DIR)/%$(TARGET_EXTENSION))
@@ -25,9 +24,9 @@ INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR)/libft -I$(SRC_DIR)
 
 all: clean default
 
-default: $(TARGETS)
+default: $(SRC_DIR)/libftprintf.a $(TARGETS)
 
-$(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(SRC_DIR)/libft/libft.a $(SRCS)
+$(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c 
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $^ -o $@
 	$(shell pwd)/$@
@@ -36,7 +35,7 @@ $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c
 	mkdir -p $(TEST_RUNNER_DIR)
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb $^ $@
 
-$(SRC_DIR)/libftprintf.a:
+$(SRC_DIR)/libftprintf.a: $(SRC_DIR)/*
 	make -sC $(SRC_DIR)
 
 clean:
