@@ -35,7 +35,7 @@ $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c
 	mkdir -p $(TEST_RUNNER_DIR)
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb $^ $@
 
-$(SRC_DIR)/libftprintf.a: $(SRC_DIR)/*
+$(SRC_DIR)/libftprintf.a: $(SRC_DIR)/*.c $(SRC_DIR)/*.h
 	make -sC $(SRC_DIR)
 
 clean:
