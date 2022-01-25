@@ -32,6 +32,10 @@ should_print_error() {
 	should_be_the_same $1 error
 }
 
+should_be_correct() {
+	should_be_the_same $1 "$1.correct"
+}
+
 should_be_the_same() {
 	$EXE $1 > $ACTUAL
 	printf "${RED}"
@@ -43,23 +47,42 @@ should_be_the_same() {
 should_be_the_same_with_time() {
 	time $EXE $1 > $ACTUAL
 	printf "${RED}"
-	diff $2 $ACTUAL && print_ok
+	diff "$1.correct" $ACTUAL && print_ok
 	printf "${RESET}"
 	rm $ACTUAL
 }
 make -s -C $SRC_DIR
 
+printf "${CYAN}===EVAL====FORM=====${RESET}\n"
+
 printf "NORM: "
 norminette $SRC_DIR > /dev/null && print_ok || print_fail
+
+printf "print error with invalid piece: "
+should_print_error sandbox/eval_form_incorrect_1.txt
+
+printf "print error with incorrect format file: "
+should_print_error sandbox/eval_form_incorrect_2.txt
+
+printf "print error when there are 27 tetriminos: "
+should_print_error sandbox/27_pieces.txt
+
+printf "easy fillit: "
+should_be_correct sandbox/test-easy.fillit
+
+printf "baby speed test: "
+should_be_the_same_with_time sandbox/test1
+
+printf "challenge speed test: "
+should_be_the_same_with_time sandbox/test7
+
+printf "${CYAN}===MY====TEST=======${RESET}\n"
 
 printf "print error when file does not exist: "
 should_print_error sandbox/42.txt
 
 printf "print error when file is empty: "
 should_print_error sandbox/empty.txt
-
-printf "print error when there are 27 tetriminos: "
-should_print_error sandbox/27_pieces.txt
 
 printf "print error when line length > 4: "
 should_print_error sandbox/too_wide.txt
@@ -95,34 +118,34 @@ printf "print error when blocks are not stick together (2): "
 should_print_error sandbox/blocks_not_stick_together_2.txt
 
 printf "1 Tetrimino (1): "
-should_be_the_same sandbox/one_tetrimino.txt sandbox/one_tetrimino.txt.correct
+should_be_correct sandbox/one_tetrimino.txt
 
 printf "1 Tetrimino (2): "
-should_be_the_same sandbox/one_tetrimino_2.txt sandbox/one_tetrimino_2.txt.correct
+should_be_correct sandbox/one_tetrimino_2.txt
 
 printf "2 Tetriminos (1): "
-should_be_the_same sandbox/two_tetriminos.txt sandbox/two_tetriminos.txt.correct
+should_be_correct sandbox/two_tetriminos.txt
 
 printf "2 Tetrimino (2): "
-should_be_the_same sandbox/two_tetriminos_2.txt sandbox/two_tetriminos_2.txt.correct
+should_be_correct sandbox/two_tetriminos_2.txt
 
 printf "4 Tetriminos: "
-should_be_the_same sandbox/four_tetriminos.txt sandbox/four_tetriminos.txt.correct
+should_be_correct sandbox/four_tetriminos.txt
 
 printf "6 Tetriminos: "
-should_be_the_same sandbox/6_pieces.txt sandbox/6_pieces.txt.correct
+should_be_correct sandbox/6_pieces.txt
 
 printf "7 Tetriminos: "
-should_be_the_same sandbox/seven_tetriminos.txt sandbox/seven_tetriminos.txt.correct
+should_be_correct sandbox/seven_tetriminos.txt
 
 printf "8 Tetriminos: "
-should_be_the_same sandbox/eight_tetriminos.txt sandbox/eight_tetriminos.txt.correct
+should_be_correct sandbox/eight_tetriminos.txt
 
 printf "9 Tetriminos: "
-should_be_the_same sandbox/nine_tetriminos.txt sandbox/nine_tetriminos.txt.correct
+should_be_correct sandbox/nine_tetriminos.txt
 
 printf "X tetriminos: "
-should_be_the_same_with_time sandbox/x_tetriminos.txt sandbox/x_tetriminos.txt.correct
+should_be_the_same_with_time sandbox/x_tetriminos.txt
 
 printf "26 Tetriminos: "
-should_be_the_same_with_time sandbox/max.txt sandbox/max.txt.correct
+should_be_the_same_with_time sandbox/max.txt
