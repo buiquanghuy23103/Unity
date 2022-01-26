@@ -158,3 +158,6 @@ should_be_the_same_with_time sandbox/test14
 
 printf "test 15: "
 should_be_the_same_with_time sandbox/test15
+
+printf "${CYAN}===MILLON==CHECKER=====${RESET}\n"
+./fillit_millon_checker/fillit_checker.zsh -v $SRC_DIR ./fillit_millon_checker/etalon_fillit 1 26
