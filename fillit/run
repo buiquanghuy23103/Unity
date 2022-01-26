@@ -120,35 +120,44 @@ should_print_error sandbox/blocks_not_stick_together_1.txt
 printf "print error when blocks are not stick together (2): "
 should_print_error sandbox/blocks_not_stick_together_2.txt
 
-printf "1 Tetrimino (1): "
-should_be_correct sandbox/one_tetrimino.txt
+printf "test 2: "
+should_be_correct sandbox/test2
 
-printf "1 Tetrimino (2): "
-should_be_correct sandbox/one_tetrimino_2.txt
+printf "test 3: "
+should_be_correct sandbox/test3
 
-printf "2 Tetriminos (1): "
-should_be_correct sandbox/two_tetriminos.txt
+printf "test 4: "
+should_be_correct sandbox/test4
 
-printf "2 Tetrimino (2): "
-should_be_correct sandbox/two_tetriminos_2.txt
+printf "test 5: "
+should_be_correct sandbox/test5
 
-printf "4 Tetriminos: "
-should_be_correct sandbox/four_tetriminos.txt
+printf "test 6: "
+should_be_correct sandbox/test6
 
-printf "6 Tetriminos: "
-should_be_correct sandbox/6_pieces.txt
+printf "test 8: "
+should_be_correct sandbox/test8
 
-printf "7 Tetriminos: "
-should_be_correct sandbox/seven_tetriminos.txt
+printf "test 9: "
+should_be_correct sandbox/test9
 
-printf "8 Tetriminos: "
-should_be_correct sandbox/eight_tetriminos.txt
+printf "test 10: "
+should_be_correct sandbox/test10
 
-printf "9 Tetriminos: "
-should_be_correct sandbox/nine_tetriminos.txt
+printf "test 11: "
+should_be_correct sandbox/test11
 
-printf "X tetriminos: "
-should_be_the_same_with_time sandbox/x_tetriminos.txt
+printf "test 12: "
+should_be_correct sandbox/test12
 
-printf "26 Tetriminos: "
-should_be_the_same_with_time sandbox/max.txt
+printf "test 16: "
+should_be_correct sandbox/test16
+
+printf "test 13: "
+should_be_the_same_with_time sandbox/test13
+
+printf "test 14: "
+should_be_the_same_with_time sandbox/test14
+
+printf "test 15: "
+should_be_the_same_with_time sandbox/test15
