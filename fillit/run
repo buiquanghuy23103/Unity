@@ -154,6 +154,9 @@ should_be_correct sandbox/test12
 printf "test 16: "
 should_be_correct sandbox/test16
 
+printf "test 18: "
+should_be_correct sandbox/test18
+
 printf "test 13: "
 should_be_the_same_with_time sandbox/test13
 
