@@ -2,3 +2,6 @@ test_runners
 targets
 log
 actual.log
+millon_checker/.fillit_tests
+millon_checker/etalon_fillit/fillit
+millon_checker/etalon_fillit/objects/
