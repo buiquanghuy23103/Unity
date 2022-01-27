@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:22:45 by cchen             #+#    #+#             */
-/*   Updated: 2021/11/22 13:06:44 by hbui             ###   ########.fr       */
+/*   Updated: 2022/01/27 08:09:59 by hbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static size_t	file_size(FILE *file)
 		return (0);
 }
 
-static char	*read_file(int fd)
+char	*read_file(int fd)
 {
 	FILE	*file;
 	size_t	size;
