@@ -160,6 +160,9 @@ should_be_correct sandbox/test18
 printf "test 19: "
 should_be_correct sandbox/test19
 
+printf "test 20: "
+should_be_correct sandbox/test20
+
 printf "test 13: "
 should_be_the_same_with_time sandbox/test13
 
