@@ -440,7 +440,7 @@ void	test_ft_isprint7(void)
 }
 
 // FT_MEMCCPY
-static void	ASSERT_MEMCCPY_PTR(char *src, int c, size_t n)
+static void	assert_memccpy_ptr(char *src, int c, size_t n)
 {
 	char	dst[] = "This is a very long long long senctence.\n";
 	TEST_ASSERT_EQUAL_STRING_MESSAGE(
@@ -450,7 +450,7 @@ static void	ASSERT_MEMCCPY_PTR(char *src, int c, size_t n)
 	);
 }
 
-static void	ASSERT_MEMCCPY_DST(char *src, int c, size_t n)
+static void	assert_memccpy_dst(char *src, int c, size_t n)
 {
 	char	actual[] = "This is a very long long long senctence.\n";
 	char	expected[] = "This is a very long long long senctence.\n";
@@ -464,57 +464,57 @@ static void	ASSERT_MEMCCPY_DST(char *src, int c, size_t n)
 	);
 }
 
-static void	ASSERT_MEMCCPY(char *src, int c, size_t n)
+static void	assert_memccpy(char *src, int c, size_t n)
 {
-	ASSERT_MEMCCPY_PTR(src, c, n);
-	ASSERT_MEMCCPY_DST(src, c, n);
+	assert_memccpy_ptr(src, c, n);
+	assert_memccpy_dst(src, c, n);
 }
 
 void	test_ft_memccpy1(void)
 {
 	char	src[] = "Hello world!";
-	ASSERT_MEMCCPY(src, 'o', 10);
+	assert_memccpy(src, 'o', 10);
 }
 void	test_ft_memccpy2(void)
 {
 	char	src[] = "Hello world!";
-	ASSERT_MEMCCPY(src, 'z', 10);
+	assert_memccpy(src, 'z', 10);
 }
 
 void	test_ft_memccpy3(void)
 {
 	char	src[] = "Hello world!";
-	ASSERT_MEMCCPY(src, 0, 10);
+	assert_memccpy(src, 0, 10);
 }
 void	test_ft_memccpy4(void)
 {
 	char	src[] = "Hello world!";
-	ASSERT_MEMCCPY(src, 0, 0);
+	assert_memccpy(src, 0, 0);
 }
 void	test_ft_memccpy5(void)
 {
 	char	src[] = "Hello world!";
-	ASSERT_MEMCCPY(src, 0, sizeof(src));
+	assert_memccpy(src, 0, sizeof(src));
 }
 void	test_ft_memccpy6(void)
 {
 	char	src[] = "Hello world!";
-	ASSERT_MEMCCPY(src, 'H', 10);
+	assert_memccpy(src, 'H', 10);
 }
 void	test_ft_memccpy7(void)
 {
 	char	src[] = "Well, \200 is larger than";
-	ASSERT_MEMCCPY(src, '\200', 20);
+	assert_memccpy(src, '\200', 20);
 }
 void	test_ft_memccpy8(void)
 {
 	char	src[] = "Well, \200 is larger than";
-	ASSERT_MEMCCPY(src, '\200', 4);
+	assert_memccpy(src, '\200', 4);
 }
 void	test_ft_memccpy9(void)
 {
 	char src[] = "string withAinside !";
-	ASSERT_MEMCCPY(src, 'A', 11);
+	assert_memccpy(src, 'A', 11);
 }
 
 // FT_MEMCHR
