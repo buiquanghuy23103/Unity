@@ -354,12 +354,12 @@ void	test_ft_isascii2(void)
 
 void	test_ft_isascii3(void)
 {
-	mt_isacii(126, "isascii(126)");
+	mt_isacii(127, "isascii(127)");
 }
 
 void	test_ft_isascii4(void)
 {
-	mt_isacii(127, "isascii(127)");
+	mt_isacii(128, "isascii(128)");
 }
 
 void	test_ft_isascii5(void)
@@ -371,3 +371,71 @@ void	test_ft_isascii6(void)
 {
 	mt_isacii('\n', "isascii('\n')");
 }
+
+// FT_ISDIGIT
+static void	mt_isdigit(int c, char *message)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(isdigit(c), ft_isdigit(c), message);
+}
+
+void	test_ft_isdigit1(void)
+{
+	mt_isdigit('0', "isdigit('0')");
+}
+
+void	test_ft_isdigit2(void)
+{
+	mt_isdigit('/', "isdigit('/')");
+}
+
+void	test_ft_isdigit3(void)
+{
+	mt_isdigit(':', "isdigit(':')");
+}
+
+void	test_ft_isdigit4(void)
+{
+	mt_isdigit('9', "isdigit('9')");
+}
+
+// FT_ISPRINT
+static void	mt_isprint(int c, char *message)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(1, ft_isprint(c), message);
+}
+
+void	test_ft_isprint1(void)
+{
+	mt_isprint(0, "isprint(0)");
+}
+
+void	test_ft_isprint2(void)
+{
+	mt_isprint(31, "isprint(31)");
+}
+
+void	test_ft_isprint3(void)
+{
+	mt_isprint(32, "isprint(32)");
+}
+
+void	test_ft_isprint4(void)
+{
+	mt_isprint(127, "isprint(127)");
+}
+
+void	test_ft_isprint5(void)
+{
+	mt_isprint(128, "isprint(128)");
+}
+
+void	test_ft_isprint6(void)
+{
+	mt_isprint(-1, "isprint(-1)");
+}
+
+void	test_ft_isprint7(void)
+{
+	mt_isprint(126, "isprint(126)");
+}
+
