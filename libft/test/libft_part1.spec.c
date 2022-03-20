@@ -23,7 +23,7 @@ void	test_ft_memset0(void)
 	memset(b1, 'A', 10);
 	ft_memset(b2, 'A', 10);
 
-	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(b1, b2, 20, "basic memset test (fill a buffer with 'A')");
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(b1, b2, BSIZE, "basic memset test (fill a buffer with 'A')");
 }
 
 void	test_ft_memset1(void)
@@ -37,15 +37,15 @@ void	test_ft_memset1(void)
 	memset(b1, '\200', 10);
 	ft_memset(b2, '\200', 10);
 
-	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(b1, b2, 20, "your memset does not cast the memory into unsigned chars");
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(b1, b2, BSIZE, "your memset does not cast the memory into unsigned chars");
 }
 
 void	test_ft_memset2(void)
 {
-	char	*r1 = memset("", 'B', (0));
-	char	*r2 = memset("", 'B', (0));
+	char	str[] = "This is a test.";
+	char	*ret = ft_memset(str, 'B', 1);
 
-	TEST_ASSERT_EQUAL_MESSAGE(r1, r2, "either your memset return value is incorrect, or your memset does not work");
+	TEST_ASSERT_EQUAL_PTR_MESSAGE(str, ret, "Return value is incorrect.");
 }
 
 void	test_ft_memset3(void)
@@ -70,7 +70,9 @@ void	test_ft_memset4(void)
 	memset(c1, '\5', BSIZE);
 	ft_memset(c2, '\5', BSIZE);
 
-	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(c1, c2, BSIZE, "basic memset test (fill a buffer with 'A')");
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(c1, c2, BSIZE, "basic memset test: fill a buffer with 5(int)");
+	free(c1);
+	free(c2);
 }
 void	test_ft_memset5(void)
 {
