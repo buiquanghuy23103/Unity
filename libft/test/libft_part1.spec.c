@@ -737,3 +737,35 @@ void	test_ft_strcat2(void)
 	TEST_ASSERT_EQUAL_STRING_MESSAGE("Bonjour.", buf, "Cannot concate string properly.");
 	TEST_ASSERT_EQUAL_PTR_MESSAGE(buf, ft_strcat(buf, ""), "Return value is not correct.");
 }
+
+// FT_STRCHR
+static void	assert_strchr(int c)
+{
+	const char	src[] = "Hello world!";
+	TEST_ASSERT_EQUAL_PTR(strchr(src, c), ft_strchr(src, c));
+}
+
+void	test_ft_strchr1(void)
+{
+	assert_strchr('l');
+}
+
+void	test_ft_strchr2(void)
+{
+	assert_strchr('=');
+}
+
+void	test_ft_strchr3(void)
+{
+	assert_strchr(0);
+}
+
+void	test_ft_strchr4(void)
+{
+	assert_strchr('!');
+}
+
+void	test_ft_strchr5(void)
+{
+	assert_strchr('H');
+}
