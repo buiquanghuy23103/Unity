@@ -335,3 +335,39 @@ void	test_ft_isalpha12(void)
 {
 	mt_isalpha(7, "isalpha(7)");
 }
+
+// FT_ASCII
+static void	mt_isacii(int c, char *message)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(isascii(c), ft_isascii(c), message);
+}
+
+void	test_ft_isascii1(void)
+{
+	mt_isacii('a', "isascii('a')");
+}
+
+void	test_ft_isascii2(void)
+{
+	mt_isacii(-42, "isascii(-42)");
+}
+
+void	test_ft_isascii3(void)
+{
+	mt_isacii(126, "isascii(126)");
+}
+
+void	test_ft_isascii4(void)
+{
+	mt_isacii(127, "isascii(127)");
+}
+
+void	test_ft_isascii5(void)
+{
+	mt_isacii(0, "isascii(0)");
+}
+
+void	test_ft_isascii6(void)
+{
+	mt_isacii('\n', "isascii('\n')");
+}
