@@ -171,7 +171,7 @@ void	test_ft_atoi16(void)
 }
 
 // FT_BZERO
-void	mt_bzero(int mem_size, void *expected, void *actual, int bzero_size, char *message)
+static void	mt_bzero(int mem_size, void *expected, void *actual, int bzero_size, char *message)
 {
 	bzero(expected, bzero_size);
 	ft_bzero(actual, bzero_size);
@@ -202,4 +202,70 @@ void	test_ft_bzero3(void)
 	char	actual[10] = "0123456789";
 
 	mt_bzero(sizeof(expected), expected, actual, 3, "bzero only a part of the memory.");
+}
+
+// FT_ISALNUM
+static void	mt_isalnum(int c, char *message)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(isalnum(c), ft_isalnum(c), message);
+}
+
+void	test_ft_isalnum1(void)
+{
+	mt_isalnum('a', "isalnum(a)");
+}
+
+void	test_ft_isalnum2(void)
+{
+	mt_isalnum('b' + 0x100, "isalnum('b' + 0x100)");
+}
+
+void	test_ft_isalnum3(void)
+{
+	mt_isalnum('2', "isalnum('2')");
+}
+
+void	test_ft_isalnum4(void)
+{
+	mt_isalnum('Z', "isalnum('Z')");
+}
+
+void	test_ft_isalnum5(void)
+{
+	mt_isalnum(0, "isalnum(0)");
+}
+
+void	test_ft_isalnum6(void)
+{
+	mt_isalnum(1, "isalnum(1)");
+}
+
+void	test_ft_isalnum7(void)
+{
+	mt_isalnum(999, "isalnum(999)");
+}
+
+void	test_ft_isalnum8(void)
+{
+	mt_isalnum(' ', "isalnum(' ')");
+}
+
+void	test_ft_isalnum9(void)
+{
+	mt_isalnum('%', "isalnum('%')");
+}
+
+void	test_ft_isalnum10(void)
+{
+	mt_isalnum('\n', "isalnum('\n')");
+}
+
+void	test_ft_isalnum11(void)
+{
+	mt_isalnum('\t', "isalnum('\t')");
+}
+
+void	test_ft_isalnum12(void)
+{
+	mt_isalnum(7, "isalnum(7)");
 }
