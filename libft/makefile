@@ -21,7 +21,7 @@ CFLAGS += -Werror
 CFLAGS += -DUNITY_OUTPUT_COLOR
 CFLAGS += -L$(LIBFT_DIR) -lft
 
-TESTS=$(shell find $(TEST_DIR) -name '*.c' -follow -print | grep $(PATTERN))
+TESTS=$(shell find $(TEST_DIR) -name '*.spec.c' -follow -print | grep $(PATTERN))
 TEST_RUNNERS=$(TESTS:$(TEST_DIR)/%.c=$(TEST_RUNNER_DIR)/%_Runner.c)
 TARGETS=$(TESTS:$(TEST_DIR)/%.c=$(TARGET_DIR)/%$(TARGET_EXTENSION))
 
@@ -35,7 +35,7 @@ default: $(TARGETS)
 $(TARGETS): $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(LIBFT_DIR)/libft.a
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $^ -o $@
-	$(shell pwd)/$@ >> $(LOG) && printf "$@: $(GREEN)OK$(RESET)\n" || printf "$@ $(RED)FAIL$(RESET)\n"
+	$(shell pwd)/$@
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
 	mkdir -p $(TEST_RUNNER_DIR)
