@@ -821,3 +821,75 @@ void	test_ft_strdup2(void)
 	TEST_ASSERT_TRUE_MESSAGE(expected != actual, "You should return a new string instead of the source.");
 	free(actual);
 }
+
+// FT_STRLCAT
+static void	assert_strlcat(char *dst1, char *dst2, char *src, size_t dstsize)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(strlcat(dst1, src, dstsize), ft_strlcat(dst2, src, dstsize),
+		"Return value is incorrect.");
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(dst1, dst2, "Not concatenate string properly.");
+}
+
+void	test_ft_strlcat1(void)
+{
+	char	dst1[10];
+	char	dst2[10];
+
+	bzero(dst1, sizeof(dst1));
+	bzero(dst2, sizeof(dst2));
+	strcpy(dst1, "abc");
+	strcpy(dst2, "abc");
+	assert_strlcat(dst1, dst2, "abcdefghijklmnop", 10);
+	assert_strlcat(dst1, dst2, "abcd", 2);
+}
+
+void	test_ft_strlcat2(void)
+{
+	char	dst1[10];
+	char	dst2[10];
+
+	bzero(dst1, sizeof(dst1));
+	bzero(dst2, sizeof(dst2));
+	assert_strlcat(dst1, dst2, "abc", 10);
+	assert_strlcat(dst1, dst2, "def", 10);
+}
+
+void	test_ft_strlcat3(void)
+{
+	char	dst1[10];
+	char	dst2[10];
+
+	bzero(dst1, 10);
+	bzero(dst2, 10);
+	memset(dst1, 'a', 9);
+	memset(dst2, 'a', 9);
+	assert_strlcat(dst1, dst2, "ccc", 10);
+}
+
+void	test_ft_strlcat4(void)
+{
+	char	dst1[] = "abc\0\0\0";
+	char	dst2[] = "abc\0\0\0";
+	assert_strlcat(dst1, dst2, "ccc", 0);
+}
+
+void	test_ft_strlcat5(void)
+{
+	char	dst1[] = "abc\0\0\0";
+	char	dst2[] = "abc\0\0\0";
+	assert_strlcat(dst1, dst2, "ccc", 1);
+}
+
+void	test_ft_strlcat6(void)
+{
+	char	dst1[] = "abc\0\0\0";
+	char	dst2[] = "abc\0\0\0";
+	assert_strlcat(dst1, dst2, "ccc", 6);
+}
+
+void	test_ft_strlcat10(void)
+{
+	char	dst1[] = "abc\0\0\0";
+	char	dst2[] = "abc\0\0\0";
+	assert_strlcat(dst1, dst2, "ccc", 10);
+}
