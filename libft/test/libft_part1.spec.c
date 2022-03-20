@@ -269,3 +269,69 @@ void	test_ft_isalnum12(void)
 {
 	mt_isalnum(7, "isalnum(7)");
 }
+
+// FT_ISALPHA
+static void	mt_isalpha(int c, char *message)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(isalpha(c), ft_isalpha(c), message);
+}
+
+void	test_ft_isalpha1(void)
+{
+	mt_isalpha('a', "isalpha(a)");
+}
+
+void	test_ft_isalpha2(void)
+{
+	mt_isalpha('b' + 0x100, "isalpha('b' + 0x100)");
+}
+
+void	test_ft_isalpha3(void)
+{
+	mt_isalpha('2', "isalpha('2')");
+}
+
+void	test_ft_isalpha4(void)
+{
+	mt_isalpha('Z', "isalpha('Z')");
+}
+
+void	test_ft_isalpha5(void)
+{
+	mt_isalpha(0, "isalpha(0)");
+}
+
+void	test_ft_isalpha6(void)
+{
+	mt_isalpha(1, "isalpha(1)");
+}
+
+void	test_ft_isalpha7(void)
+{
+	mt_isalpha(999, "isalpha(999)");
+}
+
+void	test_ft_isalpha8(void)
+{
+	mt_isalpha(' ', "isalpha(' ')");
+}
+
+void	test_ft_isalpha9(void)
+{
+	mt_isalpha('%', "isalpha('%')");
+}
+
+void	test_ft_isalpha10(void)
+{
+	mt_isalpha('\n', "isalpha('\n')");
+}
+
+void	test_ft_isalpha11(void)
+{
+	mt_isalpha('\t', "isalpha('\t')");
+}
+
+void	test_ft_isalpha12(void)
+{
+	mt_isalpha(7, "isalpha(7)");
+}
