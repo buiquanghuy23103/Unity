@@ -661,3 +661,53 @@ void	test_ft_memcmp8(void)
 {
 	assert_memcmp("\200", "\0", 1);
 }
+
+// FT_MEMCPY
+void	test_ft_memcpy1(void)
+{
+	char	b1[100];
+	char	b2[100];
+
+	memset(b1, 42, 100);
+	memset(b2, 65, 100);
+
+	ft_memcpy(b1, b2, 100);
+	TEST_ASSERT_EQUAL_INT(0, memcmp(b1, b2, 100));
+	TEST_ASSERT_EQUAL_INT(0, memcmp(b1, ft_memcpy(b1, b2, 100), 100));
+}
+
+// FT_MEMMOVE
+
+void	test_ft_memmove1(void)
+{
+	char	src[100];
+	char	dst[100];
+
+	memset(src, 42, 100);
+	memset(dst, 65, 100);
+	TEST_ASSERT_EQUAL_PTR_MESSAGE(dst, ft_memmove(dst, src, 100), "Return value is incorrect.");
+}
+
+void	test_ft_memmove2(void)
+{
+	char	testA1[] = "abcdef";
+	char	testA2[] = "abcdef";
+
+	ft_memmove(testA1 + 1, testA1, 5);
+	ft_memmove(testA1 + 1, testA1, 0);
+	memmove(testA2 + 1, testA2, 5);
+	memmove(testA2 + 1, testA2, 0);
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(testA2, testA1, "Cannot handle when dst > src");
+}
+
+void	test_ft_memmove3(void)
+{
+	char	testB1[] = "abcdef";
+	char	testB2[] = "abcdef";
+
+	ft_memmove(testB1, testB1 + 1, 5);
+	ft_memmove(testB1, testB1 + 1, 0);
+	memmove(testB2, testB2 + 1, 5);
+	memmove(testB2, testB2 + 1, 0);
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(testB2, testB1, "Cannot handle when dst < src");
+}
