@@ -769,3 +769,34 @@ void	test_ft_strchr5(void)
 {
 	assert_strchr('H');
 }
+
+// FT_STRCMP
+static void	assert_strcmp(char *s1, char *s2, char *message)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(strcmp(s1, s2), ft_strcmp(s1, s2), message);
+}
+
+void test_ft_strcmp1(void)
+{
+	assert_strcmp("", "", "strcmp(\"\", \"\")");
+}
+
+void test_ft_strcmp2(void)
+{
+	assert_strcmp("abc", "abc", "strcmp(\"abc\", \"abc\")");
+}
+
+void test_ft_strcmp3(void)
+{
+	assert_strcmp("abc", "abd", "strcmp(\"abc\", \"abd\")");
+}
+
+void test_ft_strcmp4(void)
+{
+	assert_strcmp("\200", "\0", "strcmp(\"\\200\", \"\\0\")");
+}
+
+void test_ft_strcmp5(void)
+{
+	assert_strcmp("a", "abcde", "strcmp(\"a\", \"abcde\")");
+}
