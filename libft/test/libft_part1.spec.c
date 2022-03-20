@@ -516,3 +516,71 @@ void	test_ft_memccpy9(void)
 	char src[] = "string withAinside !";
 	ASSERT_MEMCCPY(src, 'A', 11);
 }
+
+// FT_MEMCHR
+
+static void	assert_memchr(void *src, int c, size_t n)
+{
+	TEST_ASSERT_EQUAL_PTR(memchr(src, c, n), ft_memchr(src, c, n));
+}
+
+void	test_ft_memchr1(void)
+{
+	char	src[] = "Hello world!";
+
+	assert_memchr(src, 'l', 10);
+}
+
+void	test_ft_memchr2(void)
+{
+	char	src[] = "Hello world!";
+
+	assert_memchr(src, '=', 10);
+}
+
+void	test_ft_memchr3(void)
+{
+	char	src[] = "hello world!";
+
+	assert_memchr(src, 0, 20);
+}
+
+void	test_ft_memchr4(void)
+{
+	char	src[] = "Hello world!";
+
+	assert_memchr(src, '!', 10);
+}
+
+void	test_ft_memchr5(void)
+{
+	char	src[] = "Hello world!";
+
+	assert_memchr(src, 'y', 100);
+}
+
+void	test_ft_memchr6(void)
+{
+	char			char_tab[10];
+	int				int_tab[10];
+	unsigned long	long_tab[10];
+	int				i;
+
+	i = 0;
+	while (i < 10)
+	{
+		char_tab[i] = (char) rand();
+		int_tab[i] = rand();
+		long_tab[i] = (unsigned long) rand() * 10000;
+		i++;
+	}
+
+	assert_memchr(char_tab, char_tab[7], sizeof(char_tab));
+	assert_memchr(int_tab, int_tab[7], sizeof(int_tab));
+	assert_memchr(long_tab, rand(), sizeof(long_tab));
+}
+
+void	test_ft_memchr7(void)
+{
+	assert_memchr(NULL, 0, 0);
+}
