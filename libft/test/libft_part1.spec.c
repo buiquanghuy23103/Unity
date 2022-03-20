@@ -170,3 +170,36 @@ void	test_ft_atoi16(void)
 	}
 }
 
+// FT_BZERO
+void	mt_bzero(int mem_size, void *expected, void *actual, int bzero_size, char *message)
+{
+	bzero(expected, bzero_size);
+	ft_bzero(actual, bzero_size);
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(expected, actual, mem_size, message);
+}
+
+void	test_ft_bzero1(void)
+{
+	char	expected[10] = "0123456789";
+	char	actual[10] = "0123456789";
+
+	bzero(expected, 10);
+	ft_bzero(actual, 10);
+	mt_bzero(sizeof(expected), expected, actual, 10, "bzero the entire memory.");
+}
+
+void	test_ft_bzero2(void)
+{
+	char	expected[10] = "0123456789";
+	char	actual[10] = "0123456789";
+
+	mt_bzero(sizeof(expected), expected, actual, 0, "bzero(mem, 0)");
+}
+
+void	test_ft_bzero3(void)
+{
+	char	expected[10] = "0123456789";
+	char	actual[10] = "0123456789";
+
+	mt_bzero(sizeof(expected), expected, actual, 3, "bzero only a part of the memory.");
+}
