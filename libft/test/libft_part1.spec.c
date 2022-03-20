@@ -401,7 +401,7 @@ void	test_ft_isdigit4(void)
 // FT_ISPRINT
 static void	mt_isprint(int c, char *message)
 {
-	TEST_ASSERT_EQUAL_INT_MESSAGE(1, ft_isprint(c), message);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(isprint(c), ft_isprint(c), message);
 }
 
 void	test_ft_isprint1(void)
@@ -439,3 +439,80 @@ void	test_ft_isprint7(void)
 	mt_isprint(126, "isprint(126)");
 }
 
+// FT_MEMCCPY
+static void	ASSERT_MEMCCPY_PTR(char *src, int c, size_t n)
+{
+	char	dst[] = "This is a very long long long senctence.\n";
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(
+		memccpy(dst, src, c, n),
+		ft_memccpy(dst, src, c, n),
+		"Return value is incorrect."
+	);
+}
+
+static void	ASSERT_MEMCCPY_DST(char *src, int c, size_t n)
+{
+	char	actual[] = "This is a very long long long senctence.\n";
+	char	expected[] = "This is a very long long long senctence.\n";
+	
+	ft_memccpy(actual, src, c, n);
+	memccpy(expected, src, c, n);
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(
+		expected,
+		actual,
+		"Memory is not copied properly."
+	);
+}
+
+static void	ASSERT_MEMCCPY(char *src, int c, size_t n)
+{
+	ASSERT_MEMCCPY_PTR(src, c, n);
+	ASSERT_MEMCCPY_DST(src, c, n);
+}
+
+void	test_ft_memccpy1(void)
+{
+	char	src[] = "Hello world!";
+	ASSERT_MEMCCPY(src, 'o', 10);
+}
+void	test_ft_memccpy2(void)
+{
+	char	src[] = "Hello world!";
+	ASSERT_MEMCCPY(src, 'z', 10);
+}
+
+void	test_ft_memccpy3(void)
+{
+	char	src[] = "Hello world!";
+	ASSERT_MEMCCPY(src, 0, 10);
+}
+void	test_ft_memccpy4(void)
+{
+	char	src[] = "Hello world!";
+	ASSERT_MEMCCPY(src, 0, 0);
+}
+void	test_ft_memccpy5(void)
+{
+	char	src[] = "Hello world!";
+	ASSERT_MEMCCPY(src, 0, sizeof(src));
+}
+void	test_ft_memccpy6(void)
+{
+	char	src[] = "Hello world!";
+	ASSERT_MEMCCPY(src, 'H', 10);
+}
+void	test_ft_memccpy7(void)
+{
+	char	src[] = "Well, \200 is larger than";
+	ASSERT_MEMCCPY(src, '\200', 20);
+}
+void	test_ft_memccpy8(void)
+{
+	char	src[] = "Well, \200 is larger than";
+	ASSERT_MEMCCPY(src, '\200', 4);
+}
+void	test_ft_memccpy9(void)
+{
+	char src[] = "string withAinside !";
+	ASSERT_MEMCCPY(src, 'A', 11);
+}
