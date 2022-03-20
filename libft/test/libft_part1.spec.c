@@ -800,3 +800,24 @@ void test_ft_strcmp5(void)
 {
 	assert_strcmp("a", "abcde", "strcmp(\"a\", \"abcde\")");
 }
+
+// FT_STRDUP
+void	test_ft_strdup1(void)
+{
+	char	expected[] = "Hello world!\n";
+	char	*actual = ft_strdup(expected);
+
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(expected, actual, "Not duplicate normal string properly.");
+	TEST_ASSERT_TRUE_MESSAGE(expected != actual, "You should return a new string instead of the source.");
+	free(actual);
+}
+
+void	test_ft_strdup2(void)
+{
+	char	expected[] = "";
+	char	*actual = ft_strdup(expected);
+
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(expected, actual, "Not duplicate an empty string properly.");
+	TEST_ASSERT_TRUE_MESSAGE(expected != actual, "You should return a new string instead of the source.");
+	free(actual);
+}
