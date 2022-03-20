@@ -584,3 +584,80 @@ void	test_ft_memchr7(void)
 {
 	assert_memchr(NULL, 0, 0);
 }
+
+// FT_MEMCMP
+
+static void	assert_memcmp(void *b1, void *b2, size_t n)
+{
+	TEST_ASSERT_EQUAL(memcmp(b1, b2, n), ft_memcmp(b1, b2, n));
+}
+
+void	test_ft_memcmp1(void)
+{
+	int	b1[100];
+	int	b2[100];
+
+	memset(b1, 300, 100);
+	memset(b2, 300, 50);
+	memset(b2 + 50, 500, 50);
+
+	assert_memcmp(b1, b2, 100);
+	assert_memcmp(b1, b2, 50);
+}
+
+void	test_ft_memcmp2(void)
+{
+	assert_memcmp("ab\0ab", "ab\0ab", 6);
+}
+
+void	test_ft_memcmp3(void)
+{
+	assert_memcmp("ab\0ab", "ab\0ac", 6);
+}
+
+void	test_ft_memcmp4(void)
+{
+	char			char1_tab[10];
+	char			char2_tab[10];
+	int				int1_tab[10];
+	int				int2_tab[10];
+	unsigned long	long1_tab[10];
+	unsigned long	long2_tab[10];
+	int				i;
+
+	i = 0;
+	while (i < 10)
+	{
+		char1_tab[i] = (char) rand();
+		char2_tab[i] = (char) rand();
+		int1_tab[i] = rand();
+		int2_tab[i] = rand();
+		long1_tab[i] = (unsigned long) rand() * 10000;
+		long2_tab[i] = (unsigned long) rand() * 10000;
+		i++;
+	}
+
+	assert_memcmp(char1_tab, char2_tab, 10);
+	assert_memcmp(int1_tab, int2_tab, 10);
+	assert_memcmp(long1_tab, long2_tab, 10);
+}
+
+void	test_ft_memcmp5(void)
+{
+	assert_memcmp("aaa", "aab", 4);
+}
+
+void	test_ft_memcmp6(void)
+{
+	assert_memcmp("aab", "aac", 2);
+}
+
+void	test_ft_memcmp7(void)
+{
+	assert_memcmp("aww", "bpp", 0);
+}
+
+void	test_ft_memcmp8(void)
+{
+	assert_memcmp("\200", "\0", 1);
+}
