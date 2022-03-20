@@ -713,3 +713,27 @@ void	test_ft_memmove3(void)
 	memmove(testB2, testB2 + 1, 0);
 	TEST_ASSERT_EQUAL_STRING_MESSAGE(testB2, testB1, "Cannot handle when dst < src");
 }
+
+// FT_STRCAT
+void	test_ft_strcat1(void)
+{
+	char	s1[] = "Hello \0 1234567890";
+	char	s2[] = "Hello \0 1234567890";
+	char	s3[] = "world!";
+
+	TEST_ASSERT_EQUAL_STRING(strcat(s1, s3), ft_strcat(s2, s3));
+}
+
+void	test_ft_strcat2(void)
+{
+	char	buf[9];
+
+	bzero(buf, 9);
+	ft_strcat(buf, "");
+	ft_strcat(buf, "Bon");
+	ft_strcat(buf, "j");
+	ft_strcat(buf, "our.");
+	ft_strcat(buf, "");
+	TEST_ASSERT_EQUAL_STRING_MESSAGE("Bonjour.", buf, "Cannot concate string properly.");
+	TEST_ASSERT_EQUAL_PTR_MESSAGE(buf, ft_strcat(buf, ""), "Return value is not correct.");
+}
