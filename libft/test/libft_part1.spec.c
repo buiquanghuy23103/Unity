@@ -1164,3 +1164,20 @@ void	test_ft_strstr9(void)
 {
 	assert_strstr("J'ai fait pipapipapou en LV2", "pipapou");
 }
+
+// FT_TOLOWER
+void	test_ft_tolower1(void)
+{
+	TEST_ASSERT_EQUAL(tolower('#'), ft_tolower('#'));
+	TEST_ASSERT_EQUAL(tolower('1'), ft_tolower('1'));
+}
+void	test_ft_tolower2(void)
+{
+	TEST_ASSERT_EQUAL(tolower('a'), ft_tolower('a'));
+	TEST_ASSERT_EQUAL(tolower('z'), ft_tolower('z'));
+}
+void	test_ft_tolower3(void)
+{
+	TEST_ASSERT_EQUAL(tolower('A'), ft_tolower('A'));
+	TEST_ASSERT_EQUAL(tolower('Z'), ft_tolower('Z'));
+}
