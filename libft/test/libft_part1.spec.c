@@ -1478,20 +1478,17 @@ void	test_ft_striter(void)
 }
 
 // FT_STRITERI
-static void	updown(unsigned int i, char *c)
+static void	iteri_test(unsigned int i, char *c)
 {
-	if (i % 2 == 0)
-		*c = (char) ft_toupper(*c);
-	else
-		*c = (char) ft_tolower(*c);
+	*c = *c + i;
 }
 
 void	test_ft_striteri1(void)
 {
-	char str[] = "Hello, my name is Huy!\n";
+	char str[] = "aaaaaa";
 
-	ft_striteri(str, &updown);
-	TEST_ASSERT_EQUAL_STRING("HeLlO, mY NaMe iS HuY!\n", str);
+	ft_striteri(str, &iteri_test);
+	TEST_ASSERT_EQUAL_STRING("abcdef", str);
 }
 
 // FT_STRJOIN
@@ -1510,4 +1507,35 @@ void	test_ft_strjoin1(void)
 void	test_ft_strjoin2(void)
 {
 	assert_strjoin("", "", "");
+}
+
+// FT_STRMAP
+static char	map_test(char c)
+{
+	return ((char)toupper(c));
+}
+void	test_ft_strmap(void)
+{
+	char	input[] = "Hello, my name is Huy!\n";
+	char	*str;
+
+	str = ft_strmap(input, &map_test);
+	TEST_ASSERT_EQUAL_STRING("HELLO, MY NAME IS HUY!\n", str);
+	ft_strdel(&str);
+}
+
+// FT_STRMAPI
+static char	mapi_test(unsigned int i, char c)
+{
+	return (c + i);
+}
+
+void	test_ft_strmapi(void)
+{
+	char	input[] = "aaaaaa";
+	char	*str;
+
+	str = ft_strmapi(input, &mapi_test);
+	TEST_ASSERT_EQUAL_STRING("abcdef", str);
+	ft_strdel(&str);
 }
