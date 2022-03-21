@@ -925,3 +925,34 @@ void	test_ft_strlen4(void)
 	assert_strlen(str, "Not work with 10 million-chars string.");
 	free(str);
 }
+
+// FT_STRNCAT
+static void	assert_strncat(char *dst1, char *dst2, char *src, size_t n)
+{
+	strncat(dst1, src, n);
+	ft_strncat(dst2, src, n);
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(dst1, dst2, "Not concatenate string properly.");
+}
+
+void	test_ft_strncat1(void)
+{
+	char	dst1[] = "1234567890123456789";
+	char	dst2[] = "1234567890123456789";
+
+	strcpy(dst1, "To be ");
+	strcpy(dst2, "To be ");
+	assert_strncat(dst1, dst2, "or not to be", 6);
+}
+
+void	test_ft_strncat2(void)
+{
+	char	dst1[20];
+	char	dst2[20];
+
+	strcpy(dst1, "To be ");
+	strcpy(dst2, "To be ");
+
+	assert_strncat(dst1, dst2, "or not to be", 6);
+	assert_strncat(dst1, dst2, "efefef", 0);
+	assert_strncat(dst1, dst2, "", 0);
+}
