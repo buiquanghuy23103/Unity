@@ -893,3 +893,35 @@ void	test_ft_strlcat10(void)
 	char	dst2[] = "abc\0\0\0";
 	assert_strlcat(dst1, dst2, "ccc", 10);
 }
+
+// FT_STRLEN
+static void	assert_strlen(char *s, char *message)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(strlen(s), ft_strlen(s), message);
+}
+
+void	test_ft_strlen1(void)
+{
+	assert_strlen("", "strlen(\"\")");
+}
+
+void	test_ft_strlen2(void)
+{
+	assert_strlen("aaa\0aaa", "strlen(\"aaa\\0aaa\")");
+}
+
+void	test_ft_strlen3(void)
+{
+	assert_strlen("hello", "strlen(\"hello\")");
+}
+
+void	test_ft_strlen4(void)
+{
+	int test_len = 10 * 1000 * 1000;
+	char *str = malloc(sizeof(char) * test_len);;
+
+	memset(str, 'a', test_len);
+	str[test_len - 1] = '\0';
+	assert_strlen(str, "Not work with 10 million-chars string.");
+	free(str);
+}
