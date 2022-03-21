@@ -1587,3 +1587,54 @@ void	test_ft_strnew3(void)
 	char	*actual = ft_strnew(ULONG_MAX - 1);
 	TEST_ASSERT_NULL(actual);
 }
+
+// FT_STRSPLIT
+
+static void	assert_strsplit(char *expected[], char *src, char c, int array_len)
+{
+	int		i;
+	char	**actual;
+	char	message[] = "Element # is incorrect.";
+
+	i = 0;
+	actual = ft_strsplit(src, c);
+	TEST_ASSERT_NOT_NULL(actual);
+	while(i < array_len)
+	{
+		message[8] = i + '0';
+		TEST_ASSERT_EQUAL_STRING_MESSAGE(expected[i], actual[i], message);
+		free(actual[i]);
+		i++;
+	}
+	free(actual);
+}
+
+void	test_ft_strsplit1(void)
+{
+	char	*expected[] = {"salut", "!", NULL};
+	assert_strsplit(expected, "***salut****!**", '*', 3);
+}
+
+void	test_ft_strsplit2(void)
+{
+	char	*expected[] = {NULL};
+	assert_strsplit(expected, "*****", '*', 1);
+}
+
+void	test_ft_strsplit3(void)
+{
+	char	*expected[] = { "coucou", NULL };
+	assert_strsplit(expected, "coucou", '*', 2);
+}
+
+void	test_ft_strsplit4(void)
+{
+	char	*expected[] = { "salut", NULL };
+	assert_strsplit(expected, "salut****", '*', 2);
+}
+
+void	test_ft_strsplit5(void)
+{
+	char	*expected[] = { NULL };
+	assert_strsplit(expected, "", '*', 1);
+}
