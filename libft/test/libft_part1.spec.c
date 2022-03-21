@@ -1514,7 +1514,7 @@ static char	map_test(char c)
 {
 	return ((char)toupper(c));
 }
-void	test_ft_strmap(void)
+void	test_ft_strmap1(void)
 {
 	char	input[] = "Hello, my name is Huy!\n";
 	char	*str;
@@ -1530,7 +1530,7 @@ static char	mapi_test(unsigned int i, char c)
 	return (c + i);
 }
 
-void	test_ft_strmapi(void)
+void	test_ft_strmapi1(void)
 {
 	char	input[] = "aaaaaa";
 	char	*str;
@@ -1538,4 +1538,52 @@ void	test_ft_strmapi(void)
 	str = ft_strmapi(input, &mapi_test);
 	TEST_ASSERT_EQUAL_STRING("abcdef", str);
 	ft_strdel(&str);
+}
+
+// FT_STRNEQU
+void	test_ft_strnequ1(void)
+{
+	TEST_ASSERT_EQUAL_INT(1, ft_strnequ("ededeqdf", "", 0));
+}
+
+void	test_ft_strnequ2(void)
+{
+	TEST_ASSERT_EQUAL_INT(1, ft_strnequ("abcde", "abdfe", 2));
+}
+
+void	test_ft_strnequ3(void)
+{
+	TEST_ASSERT_EQUAL_INT(1, ft_strnequ("abc", "abc", 100));
+}
+
+void	test_ft_strnequ4(void)
+{
+	TEST_ASSERT_EQUAL_INT(0, ft_strnequ("abcde", "abdde", 5));
+}
+
+// FT_STRNEW
+void	test_ft_strnew1(void)
+{
+	int		str_len = 100;
+	char	*actual;
+	char	*expected;
+
+	actual = ft_strnew(str_len);
+	expected = malloc(sizeof(char) * (str_len + 1));
+	bzero(expected, sizeof(char) * (str_len + 1));
+	TEST_ASSERT_EQUAL_MEMORY(expected, actual, str_len + 1);
+	free(actual);
+}
+
+void	test_ft_strnew2(void)
+{
+	char	*actual = ft_strnew(0);
+	TEST_ASSERT_NOT_NULL(actual);
+	free(actual);
+}
+
+void	test_ft_strnew3(void)
+{
+	char	*actual = ft_strnew(ULONG_MAX - 1);
+	TEST_ASSERT_NULL(actual);
 }
