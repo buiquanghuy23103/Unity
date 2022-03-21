@@ -1181,3 +1181,20 @@ void	test_ft_tolower3(void)
 	TEST_ASSERT_EQUAL(tolower('A'), ft_tolower('A'));
 	TEST_ASSERT_EQUAL(tolower('Z'), ft_tolower('Z'));
 }
+
+// FT_TOUPPER
+void	test_ft_toupper1(void)
+{
+	TEST_ASSERT_EQUAL(toupper('#'), ft_toupper('#'));
+	TEST_ASSERT_EQUAL(toupper('1'), ft_toupper('1'));
+}
+void	test_ft_toupper2(void)
+{
+	TEST_ASSERT_EQUAL(toupper('A'), ft_toupper('A'));
+	TEST_ASSERT_EQUAL(toupper('Z'), ft_toupper('Z'));
+}
+void	test_ft_toupper3(void)
+{
+	TEST_ASSERT_EQUAL(toupper('a'), ft_toupper('a'));
+	TEST_ASSERT_EQUAL(toupper('z'), ft_toupper('z'));
+}
