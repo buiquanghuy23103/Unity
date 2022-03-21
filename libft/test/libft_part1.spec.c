@@ -1663,3 +1663,32 @@ void	test_ft_strsub3(void)
 	TEST_ASSERT_EQUAL_STRING("", actual);
 	free(actual);
 }
+
+// FT_STRTRIM
+void	test_ft_strtrim1(void)
+{
+	char	*actual = ft_strtrim("\t\n  \tAAA \t BBB\t\n  \t");
+	TEST_ASSERT_EQUAL_STRING("AAA \t BBB", actual);
+	free(actual);
+}
+
+void	test_ft_strtrim2(void)
+{
+	char	*actual = ft_strtrim("\t\t\n\t\t   ");
+	TEST_ASSERT_EQUAL_STRING("", actual);
+	free(actual);
+}
+
+void	test_ft_strtrim3(void)
+{
+	char	*actual = ft_strtrim("");
+	TEST_ASSERT_EQUAL_STRING("", actual);
+	free(actual);
+}
+
+void	test_ft_strtrim4(void)
+{
+	char	*actual = ft_strtrim("abc");
+	TEST_ASSERT_EQUAL_STRING("abc", actual);
+	free(actual);
+}
