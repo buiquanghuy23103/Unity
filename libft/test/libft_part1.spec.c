@@ -1638,3 +1638,28 @@ void	test_ft_strsplit5(void)
 	char	*expected[] = { NULL };
 	assert_strsplit(expected, "", '*', 1);
 }
+
+// FT_STRSUB
+void	test_ft_strsub1(void)
+{
+	char	str[] = "Un jour je serai, le meilleur dresseur !";
+	char	*actual = ft_strsub(str, 0, (size_t)-10);
+	TEST_ASSERT_NULL(actual);
+	free(actual);
+}
+
+void	test_ft_strsub2(void)
+{
+	char	str[] = "Un jour je serai, le meilleur dresseur !";
+	char	*actual = ft_strsub(str, 8, 8);
+	TEST_ASSERT_EQUAL_STRING("je serai", actual);
+	free(actual);
+}
+
+void	test_ft_strsub3(void)
+{
+	char	str[] = "Un jour je serai, le meilleur dresseur !";
+	char	*actual = ft_strsub(str, 0, 0);
+	TEST_ASSERT_EQUAL_STRING("", actual);
+	free(actual);
+}
