@@ -1277,3 +1277,18 @@ void	test_ft_memdel1(void)
 	ft_memdel((void **)&mem);
 	TEST_ASSERT_NULL(mem);
 }
+
+// FT_PUTCHAR_FD
+void	test_ft_putchar_fd1(void)
+{
+	int		filedes[2];
+	char	str[100];
+
+	pipe(filedes);
+	ft_putchar_fd('a', filedes[1]);
+	ft_putchar_fd('b', filedes[1]);
+	str[read(filedes[0], str, 100)] = '\0';
+	close(filedes[0]);
+	close(filedes[1]);
+	TEST_ASSERT_EQUAL_STRING("ab", str);
+}
