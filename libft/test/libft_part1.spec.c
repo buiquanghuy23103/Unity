@@ -1264,3 +1264,16 @@ void	test_ft_memalloc2(void)
 	char	*actual = ft_memalloc(ULONG_MAX);
 	TEST_ASSERT_NULL(actual);
 }
+
+// FT_MEMDEL
+void	test_ft_memdel1(void)
+{
+	int		*mem;
+
+	mem = (int *)malloc(sizeof(int) * 3);
+	mem[0] = 949;
+	mem[1] = 859;
+	mem[2] = 442;
+	ft_memdel((void **)&mem);
+	TEST_ASSERT_NULL(mem);
+}
