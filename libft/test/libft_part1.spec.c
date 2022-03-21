@@ -1428,3 +1428,86 @@ void	test_ft_putstr1(void)
 	close(out);
 	TEST_ASSERT_EQUAL_STRING(buf, "abc");
 }
+
+// FT_STRCLR
+void	test_ft_strclr1(void)
+{
+	char	str[] = "tttttt";
+
+	ft_strclr(str);
+	TEST_ASSERT_EQUAL_MEMORY(str, "\0\0\0\0\0\0", 7);
+}
+
+// FT_STRDEL
+void	test_ft_strdel1(void)
+{
+	char	*str;
+
+	str = malloc(123);
+	ft_strdel(&str);
+	TEST_ASSERT_NULL(str);
+}
+
+// FT_STREQU
+void	test_ft_strequ1(void)
+{
+	TEST_ASSERT_EQUAL_INT(1, ft_strequ("", ""));
+}
+
+void	test_ft_strequ2(void)
+{
+	TEST_ASSERT_EQUAL_INT(1, ft_strequ("abcDEF", "abcDEF"));
+}
+
+void	test_ft_strequ3(void)
+{
+	TEST_ASSERT_EQUAL_INT(0, ft_strequ("abcDEF", "abcDEf"));
+}
+
+// FT_STRITER
+static void	convert_to_upper(char *c)
+{
+	*c = toupper(*c);
+}
+void	test_ft_striter(void)
+{
+	char	str[] = "aBcDeF";
+
+	ft_striter(str, &convert_to_upper);
+	TEST_ASSERT_EQUAL_STRING("ABCDEF", str);
+}
+
+// FT_STRITERI
+static void	updown(unsigned int i, char *c)
+{
+	if (i % 2 == 0)
+		*c = (char) ft_toupper(*c);
+	else
+		*c = (char) ft_tolower(*c);
+}
+
+void	test_ft_striteri1(void)
+{
+	char str[] = "Hello, my name is Huy!\n";
+
+	ft_striteri(str, &updown);
+	TEST_ASSERT_EQUAL_STRING("HeLlO, mY NaMe iS HuY!\n", str);
+}
+
+// FT_STRJOIN
+static void	assert_strjoin(char *s1, char *s2, char *expected)
+{
+	char	*actual = ft_strjoin(s1, s2);
+	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(actual);
+}
+
+void	test_ft_strjoin1(void)
+{
+	assert_strjoin("abc", "def", "abcdef");
+}
+
+void	test_ft_strjoin2(void)
+{
+	assert_strjoin("", "", "");
+}
