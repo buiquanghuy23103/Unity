@@ -1292,3 +1292,24 @@ void	test_ft_putchar_fd1(void)
 	close(filedes[1]);
 	TEST_ASSERT_EQUAL_STRING("ab", str);
 }
+
+// FT_PUTCHAR
+void	test_ft_putchar(void)
+{
+	int		out;
+	int		filedes[2];
+	char	buf[4];
+
+	out = dup(STDOUT_FILENO);
+	pipe(filedes);
+	dup2(filedes[1], STDOUT_FILENO);
+	ft_putchar('a');
+	ft_putchar('b');
+	ft_putchar('c');
+	dup2(out, STDOUT_FILENO);
+	buf[read(filedes[0], buf, 3)] = '\0';
+	close(filedes[0]);
+	close(filedes[1]);
+	close(out);
+	TEST_ASSERT_EQUAL_STRING("abc", buf);
+}
