@@ -1013,3 +1013,77 @@ void	test_ft_strncpy2(void)
 	memset(dst2, 33, 6);
 	assert_strncpy(dst1, dst2, "abcdefghi", 6);
 }
+
+// FT_STRNSTR
+static void	assert_strnstr(const char *haystack, const char *needle, size_t len, char *message)
+{
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(strnstr(haystack, needle, len), ft_strnstr(haystack, needle, len), message);
+}
+
+void	test_ft_strnstr1(void)
+{
+	char	haystack[10];
+
+	bzero(haystack, 10);
+	strcpy(haystack, "un deux 9");
+	assert_strnstr(haystack, "deux", 10, "Your function cannot neither find the string nor point to the correct position.");
+}
+
+void	test_ft_strnstr2(void)
+{
+	char	haystack[10];
+
+	bzero(haystack, 10);
+	strcpy(haystack, "un deux 9");
+	assert_strnstr(haystack, "9", 3, "Should return NULL when a string is not found in range.");
+}
+
+void	test_ft_strnstr3(void)
+{
+	char	haystack[10];
+
+	bzero(haystack, 10);
+	strcpy(haystack, "un deux 9");
+	assert_strnstr(haystack, "", 6, "Should return haystack when needle is an empty string.");
+}
+
+void	test_ft_strnstr4(void)
+{
+	char	haystack[10];
+
+	bzero(haystack, 10);
+	strcpy(haystack, "un deux 9");
+	assert_strnstr(haystack, "9", 10, "Your function cannot neither find the string nor point to the correct position.");
+}
+
+void	test_ft_strnstr5(void)
+{
+	char	haystack[10];
+
+	bzero(haystack, 10);
+	strcpy(haystack, "un deux 9");
+	assert_strnstr(haystack, "9", 8, "Should return NULL when a string is not found in range.");
+}
+
+void	test_ft_strnstr6(void)
+{
+	char	haystack[10];
+
+	bzero(haystack, 10);
+	strcpy(haystack, "un deux 9");
+	assert_strnstr(haystack, "96", 10, "Should return NULL when a string is not found.");
+}
+
+void	test_ft_strnstr7(void)
+{
+	char	haystack[] = "un\0deux 9";
+
+	assert_strnstr(haystack, "deux", 10, "Should return NULL when a string is not found.");
+}
+
+void	test_ft_strnstr8(void)
+{
+	char	haystack[] = "ozarabozaraboze123";
+
+	assert_strnstr(haystack, "ozaraboze", 15, "Your function cannot neither find the string nor point to the correct position.");
+}
