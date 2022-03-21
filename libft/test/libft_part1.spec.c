@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "testft.h"
 #include <time.h>
+#include <string.h>
 
 void	setUp(void)
 {
@@ -1197,4 +1198,43 @@ void	test_ft_toupper3(void)
 {
 	TEST_ASSERT_EQUAL(toupper('a'), ft_toupper('a'));
 	TEST_ASSERT_EQUAL(toupper('z'), ft_toupper('z'));
+}
+
+// FT_ITOA
+static void	assert_itoa(int num, char *expected)
+{
+	char	*actual = ft_itoa(num);
+
+	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(actual);
+}
+
+void	test_ft_itoa1(void)
+{
+	assert_itoa(0, "0");
+}
+
+void	test_ft_itoa2(void)
+{
+	assert_itoa(1, "1");
+}
+
+void	test_ft_itoa3(void)
+{
+	assert_itoa(-1234, "-1234");
+}
+
+void	test_ft_itoa4(void)
+{
+	assert_itoa(123456000, "123456000");
+}
+
+void	test_ft_itoa5(void)
+{
+	assert_itoa(-2147483648, "-2147483648");
+}
+
+void	test_ft_itoa6(void)
+{
+	assert_itoa(2147483647, "2147483647");
 }
