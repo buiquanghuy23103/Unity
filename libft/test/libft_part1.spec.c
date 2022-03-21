@@ -1238,3 +1238,29 @@ void	test_ft_itoa6(void)
 {
 	assert_itoa(2147483647, "2147483647");
 }
+
+// FT_MEMALLOC
+void	test_ft_memalloc1(void)
+{
+	void	*expected;
+	void	*actual;
+	const int	size = 100;
+
+	expected = malloc(size);
+	bzero(expected, size);
+	actual = ft_memalloc(size);
+
+	TEST_ASSERT_NOT_NULL(expected);
+	TEST_ASSERT_NOT_NULL(actual);
+
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(expected, actual, size, "Every bytes in newly allocated memory should be 0.");
+
+	free(expected);
+	free(actual);
+}
+
+void	test_ft_memalloc2(void)
+{
+	char	*actual = ft_memalloc(ULONG_MAX);
+	TEST_ASSERT_NULL(actual);
+}
