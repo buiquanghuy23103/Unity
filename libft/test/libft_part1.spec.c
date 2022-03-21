@@ -956,3 +956,35 @@ void	test_ft_strncat2(void)
 	assert_strncat(dst1, dst2, "efefef", 0);
 	assert_strncat(dst1, dst2, "", 0);
 }
+
+// FT_STRNCMP
+static void	assert_strncmp(char *s1, char *s2, size_t n, char *message)
+{
+	TEST_ASSERT_EQUAL_INT_MESSAGE(strncmp(s1, s2, n), ft_strncmp(s1, s2, n), message);
+}
+
+void	test_ft_strncmp1(void)
+{
+	assert_strncmp("\200", "\0", 1, "strncmp(\"\\200\", \"\\0\", 1)");
+}
+
+void	test_ft_strncmp2(void)
+{
+	assert_strncmp("abc", "abcde", 3, "strncmp(\"abc\", \"abcde\", 3)");
+}
+
+void	test_ft_strncmp3(void)
+{
+	assert_strncmp("abc", "abc\0defg", 100, "strncmp(\"abc\", \"abc\\0defg\", 100)");
+}
+
+void	test_ft_strncmp4(void)
+{
+	assert_strncmp("ab\0cde", "abcc\0e", 20, "strncmp(\"ab\\0cde\", \"abcc\\0e\")");
+}
+
+void	test_ft_strncmp5(void)
+{
+	assert_strncmp("q", "a", 0, "strncmp(\"q\", \"a\", 0)");
+}
+
