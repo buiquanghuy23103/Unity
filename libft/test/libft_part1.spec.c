@@ -1114,3 +1114,53 @@ void	test_ft_strrchr4(void)
 {
 	assert_strrchr('H', "strrchr(\"Habcdedcba\", 'H')");
 }
+
+// FT_STRSTR
+# define assert_strstr(s1, s2) \
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(strstr(s1, s2), ft_strstr(s1, s2), \
+	"strstr(\""s1"\", \""s2"\")");
+
+void	test_ft_strstr1(void)
+{
+	assert_strstr("Ceci n'est pas une pipe.", "une");
+}
+
+void	test_ft_strstr2(void)
+{
+	assert_strstr("Ceci n'est pas une pipe.", "C");
+}
+
+void	test_ft_strstr3(void)
+{
+	assert_strstr("Ceci n'est pas une pipe.", ".");
+}
+
+void	test_ft_strstr4(void)
+{
+	assert_strstr("Ceci n'est pas une pipe.", "");
+}
+
+void	test_ft_strstr5(void)
+{
+	assert_strstr("Ceci n'est pas une pipe.", "aaaaa");
+}
+
+void	test_ft_strstr6(void)
+{
+	assert_strstr("ozarabozaraboze", "ozaraboze");
+}
+
+void	test_ft_strstr7(void)
+{
+	assert_strstr("Ceci n'est pas une pipe.", "BWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+}
+
+void	test_ft_strstr8(void)
+{
+	assert_strstr("", "");
+}
+
+void	test_ft_strstr9(void)
+{
+	assert_strstr("J'ai fait pipapipapou en LV2", "pipapou");
+}
