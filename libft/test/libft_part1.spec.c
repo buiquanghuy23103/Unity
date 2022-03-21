@@ -988,3 +988,28 @@ void	test_ft_strncmp5(void)
 	assert_strncmp("q", "a", 0, "strncmp(\"q\", \"a\", 0)");
 }
 
+// FT_STRNCPY
+static void	assert_strncpy(char *dst1, char *dst2, char *src, size_t n)
+{
+	TEST_ASSERT_EQUAL_STRING(strncpy(dst1, src, n), ft_strncpy(dst2, src, n));
+}
+
+void	test_ft_strncpy1(void)
+{
+	char	dst1[6];
+	char	dst2[6];
+
+	memset(dst1, 33, 6);
+	memset(dst2, 33, 6);
+	assert_strncpy(dst1, dst2, "abc\0\0", 6);
+}
+
+void	test_ft_strncpy2(void)
+{
+	char	dst1[6];
+	char	dst2[6];
+
+	memset(dst1, 33, 6);
+	memset(dst2, 33, 6);
+	assert_strncpy(dst1, dst2, "abcdefghi", 6);
+}
