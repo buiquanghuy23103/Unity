@@ -1087,3 +1087,30 @@ void	test_ft_strnstr8(void)
 
 	assert_strnstr(haystack, "ozaraboze", 15, "Your function cannot neither find the string nor point to the correct position.");
 }
+
+// FT_STRRCHR
+static void	assert_strrchr(int c, char *message)
+{
+	const char	buf[] = "Habcdedcba";
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(strrchr(buf, c), ft_strrchr(buf, c), message);
+}
+
+void	test_ft_strrchr1(void)
+{
+	assert_strrchr('a', "strrchr(\"Habcdedcba\", 'a')");
+}
+
+void	test_ft_strrchr2(void)
+{
+	assert_strrchr(0, "strrchr(\"Habcdedcba\", 0)");
+}
+
+void	test_ft_strrchr3(void)
+{
+	assert_strrchr('z', "strrchr(\"Habcdedcba\", 'z')");
+}
+
+void	test_ft_strrchr4(void)
+{
+	assert_strrchr('H', "strrchr(\"Habcdedcba\", 'H')");
+}
