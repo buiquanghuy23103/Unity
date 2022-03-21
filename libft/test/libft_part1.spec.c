@@ -1294,7 +1294,7 @@ void	test_ft_putchar_fd1(void)
 }
 
 // FT_PUTCHAR
-void	test_ft_putchar(void)
+void	test_ft_putchar1(void)
 {
 	int		out;
 	int		filedes[2];
@@ -1312,4 +1312,119 @@ void	test_ft_putchar(void)
 	close(filedes[1]);
 	close(out);
 	TEST_ASSERT_EQUAL_STRING("abc", buf);
+}
+
+// FT_PUTENDL_FD
+void	test_ft_putendl_fd1(void)
+{
+	int		p[2];
+	char	buf[100];
+
+	pipe(p);
+	ft_putendl_fd("A QUE KOUKOU", p[1]);
+	buf[read(p[0], buf, 100)] = 0;
+	close(p[0]);
+	close(p[1]);
+	TEST_ASSERT_EQUAL_STRING(buf, "A QUE KOUKOU\n");
+}
+
+// FT_PUTENDL
+void	test_ft_putendl1(void)
+{
+	int		out;
+	int		p[2];
+	char	buf[4];
+
+	out = dup(1);
+	pipe(p);
+	dup2(p[1], 1);
+	ft_putendl("aa");
+	dup2(out, 1);
+	read(p[0], buf, 3);
+	buf[3] = 0;
+	close(p[0]);
+	close(p[1]);
+	close(out);
+	TEST_ASSERT_EQUAL_STRING(buf, "aa\n");
+}
+
+// FT_PUTNBR_FD
+void	test_ft_putnbr_fd1(void)
+{
+	int		p[2];
+	char	buf[100];
+
+	pipe(p);
+	ft_putnbr_fd(0, p[1]);
+	ft_putnbr_fd(1, p[1]);
+	ft_putnbr_fd(-1, p[1]);
+	ft_putnbr_fd(56, p[1]);
+	ft_putnbr_fd(-1230, p[1]);
+	ft_putnbr_fd(10203, p[1]);
+	ft_putnbr_fd(2147483647, p[1]);
+	ft_putnbr_fd(-2147483648, p[1]);
+	buf[read(p[0], buf, 100)] = 0;
+	close(p[0]);
+	close(p[1]);
+	TEST_ASSERT_EQUAL_STRING(buf, "01-156-1230102032147483647-2147483648");
+}
+
+// FT_PUTNBR
+void	test_ft_putnbr(void)
+{
+	int		out;
+	int		p[2];
+	char	buf[100];
+
+	out = dup(1);
+	pipe(p);
+	dup2(p[1], 1);
+	ft_putnbr(0);
+	ft_putnbr(1);
+	ft_putnbr(-1);
+	ft_putnbr(12300);
+	ft_putnbr(10203);
+	ft_putnbr(-56);
+	ft_putnbr(2147483647);
+	ft_putnbr(-2147483648);
+	dup2(out, 1);
+	buf[read(p[0], buf, 100)] = 0;
+	close(p[0]);
+	close(p[1]);
+	close(out);
+	TEST_ASSERT_EQUAL_STRING(buf, "01-11230010203-562147483647-2147483648");
+}
+
+// FT_PUTSTR_FD
+void	test_ft_putstr_fd1(void)
+{
+	int		p[2];
+	char	buf[100];
+
+	pipe(p);
+	ft_putstr_fd("A QUE KOUKOU", p[1]);
+	buf[read(p[0], buf, 100)] = 0;
+	close(p[0]);
+	close(p[1]);
+	TEST_ASSERT_EQUAL_STRING(buf, "A QUE KOUKOU");
+}
+
+// FT_PUTSTR
+void	test_ft_putstr1(void)
+{
+	int		out;
+	int		p[2];
+	char	buf[4];
+
+	out = dup(1);
+	pipe(p);
+	dup2(p[1], 1);
+	ft_putstr("abc");
+	dup2(out, 1);
+	read(p[0], buf, 3);
+	buf[3] = 0;
+	close(p[0]);
+	close(p[1]);
+	close(out);
+	TEST_ASSERT_EQUAL_STRING(buf, "abc");
 }
