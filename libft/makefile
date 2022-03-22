@@ -18,7 +18,7 @@ LOG=log
 CFLAGS = -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
-CFLAGS += -DUNITY_OUTPUT_COLOR
+# CFLAGS += -DUNITY_OUTPUT_COLOR
 CFLAGS += -L$(LIBFT_DIR) -lft
 
 TESTS=$(shell find $(TEST_DIR) -name '*.spec.c' -follow -print | grep $(PATTERN))
