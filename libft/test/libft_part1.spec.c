@@ -1692,3 +1692,132 @@ void	test_ft_strtrim4(void)
 	TEST_ASSERT_EQUAL_STRING("abc", actual);
 	free(actual);
 }
+
+// FT_LSTADD
+void	test_ft_lstadd1(void)
+{
+	t_list	*lst;
+	t_list	*lst2;
+
+	lst = malloc(sizeof(t_list));
+	lst2 = malloc(sizeof(t_list));
+	bzero(lst, sizeof(t_list));
+	bzero(lst2, sizeof(t_list));
+	ft_lstadd(&lst, lst2);
+	TEST_ASSERT_EQUAL_PTR_MESSAGE(lst, lst2, "Your pointer does not point to the beginning of the list.");
+	TEST_ASSERT_NOT_NULL(lst->next);
+	free(lst->next);
+	free(lst);
+}
+
+// FT_LSTDEL
+static int	lstdel_count = 0;
+static void	lstdel_test(void *content, size_t content_size)
+{
+	(void) content;
+	(void) content_size;
+	lstdel_count++;
+}
+
+void	test_ft_lstdel1(void)
+{
+	t_list	*lst;
+	int		data;
+
+	lst = malloc(sizeof(t_list));
+	bzero(lst, sizeof(t_list));
+	lst->next = malloc(sizeof(t_list));
+	bzero(lst->next, sizeof(t_list));
+	lst->content = &data;
+	lst->next->content = &data;
+	ft_lstdel(&lst, &lstdel_test);
+	TEST_ASSERT_NULL(lst);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(2, lstdel_count, "The number of items deleted is not equal to the number of list items.");
+}
+
+// FT_LSTDELONE
+static int	lstdelone_count = 0;
+static void	lstdelone_test(void *content, size_t content_size)
+{
+	(void) content;
+	(void) content_size;
+	lstdelone_count++;
+}
+void	test_ft_lstdelone1(void)
+{
+	t_list	*lst;
+	int		data;
+
+	lst = malloc(sizeof(t_list));
+	bzero(lst, sizeof(t_list));
+	lst->next = malloc(sizeof(t_list));
+	bzero(lst->next, sizeof(t_list));
+	lst->content = &data;
+	lst->next->content = &data;
+	ft_lstdelone(&lst, &lstdelone_test);
+	TEST_ASSERT_NULL(lst);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(1, lstdelone_count, "The number of items deleted is not equal to the number of list items.");
+	free(lst);
+}
+
+// FT_LSTITER
+static void	lstiter_test(t_list *item)
+{
+	item->content_size = 42;
+}
+void	test_ft_lstiter1(void)
+{
+	t_list	*lst;
+	int		data;
+
+	data = 42;
+	lst = malloc(sizeof(t_list));
+	bzero(lst, sizeof(t_list));
+	lst->next = malloc(sizeof(t_list));
+	bzero(lst->next, sizeof(t_list));
+	lst->content = &data;
+	lst->next->content = &data;
+	ft_lstiter(lst, &lstiter_test);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(42, lst->content_size, "Element 0 should have content_size=42");
+	TEST_ASSERT_EQUAL_INT_MESSAGE(42, lst->next->content_size, "Element 1 should have content_size=42");
+	free(lst->next);
+	free(lst);
+}
+
+// FT_LSTMAP
+static t_list	*lstmap_test_fn(t_list *list)
+{
+	t_list	*l2;
+	int		data;
+
+	data = 9;
+	l2 = malloc(sizeof(t_list));
+	bzero(l2, sizeof(t_list));
+	l2->content = &data;
+	l2->content_size = list->content_size * 2;
+	return (l2);
+}
+
+void	test_ft_lstmap1(void)
+{
+	t_list	*lst;
+	t_list	*map;
+	int		data;
+
+	data = 123;
+	lst = malloc(sizeof(t_list));
+	bzero(lst, sizeof(t_list));
+	lst->next = malloc(sizeof(t_list));
+	bzero(lst->next, sizeof(t_list));
+	lst->content = &data;
+	lst->content_size = 21;
+	lst->next->content = &data;
+	lst->next->content_size = 100;
+	map = ft_lstmap(lst, lstmap_test_fn);
+	TEST_ASSERT_EQUAL_INT_MESSAGE(42, map->content_size, "content_size of element 0 of the new list is incorrect.");
+	TEST_ASSERT_EQUAL_INT_MESSAGE(200, map->next->content_size, "content_size of element 1 of the new list is incorrect.");
+	free(lst->next);
+	free(lst);
+	free(map->next);
+	free(map);
+}
