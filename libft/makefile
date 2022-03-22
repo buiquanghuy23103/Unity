@@ -35,6 +35,7 @@ default: $(TARGETS)
 $(TARGETS): $(TARGET_DIR)/%$(TARGET_EXTENSION): $(TEST_RUNNER_DIR)/%_Runner.c $(TEST_DIR)/%.c $(LIBFT_DIR)/libft.a
 	mkdir -p $(TARGET_DIR)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(TEST_LIB) $^ -o $@
+	printf "\e[1;34m===%s===\e[m\n" $@
 	$(shell pwd)/$@
 
 $(TEST_RUNNER_DIR)/%_Runner.c: $(TEST_DIR)/%.c 
