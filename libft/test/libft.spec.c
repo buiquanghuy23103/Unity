@@ -1821,3 +1821,22 @@ void	test_ft_lstmap1(void)
 	free(map->next);
 	free(map);
 }
+
+// FT_LST_PUSH_BACK
+static void	del_str_lst(void *s, size_t size)
+{
+	if (size > 0)
+		free(s);
+}
+void	test_ft_lst_push_back1(void)
+{
+	t_list	*lst;
+
+	lst = ft_lstnew(strdup("one"), 4 * sizeof(char));
+	ft_lst_push_back(lst, strdup("two"), 4 * sizeof(char));
+	ft_lst_push_back(lst, strdup("three"), 6 * sizeof(char));
+	TEST_ASSERT_EQUAL_STRING("one", lst->content);
+	TEST_ASSERT_EQUAL_STRING("two", lst->next->content);
+	TEST_ASSERT_EQUAL_STRING("three", lst->next->next->content);
+	ft_lstdel(&lst, del_str_lst);
+}
