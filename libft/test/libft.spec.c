@@ -1832,11 +1832,23 @@ void	test_ft_lst_push_back1(void)
 {
 	t_list	*lst;
 
-	lst = ft_lstnew(strdup("one"), 4 * sizeof(char));
-	ft_lst_push_back(lst, strdup("two"), 4 * sizeof(char));
-	ft_lst_push_back(lst, strdup("three"), 6 * sizeof(char));
+	lst = NULL;
+	ft_lst_push_back(&lst, strdup("one"), 4 * sizeof(char));
+	ft_lst_push_back(&lst, strdup("two"), 4 * sizeof(char));
+	ft_lst_push_back(&lst, strdup("three"), 6 * sizeof(char));
 	TEST_ASSERT_EQUAL_STRING("one", lst->content);
 	TEST_ASSERT_EQUAL_STRING("two", lst->next->content);
 	TEST_ASSERT_EQUAL_STRING("three", lst->next->next->content);
+	ft_lstdel(&lst, del_str_lst);
+}
+
+void	test_ft_lst_push_back2(void)
+{
+	t_list	*lst;
+
+	lst = NULL;
+	ft_lst_push_back(&lst, strdup("one"), 4);
+	TEST_ASSERT_NOT_NULL_MESSAGE(lst, "If list is null, you must initialize it.");
+	TEST_ASSERT_EQUAL_STRING_MESSAGE("one", lst->content, "Data in list is not created properly.");
 	ft_lstdel(&lst, del_str_lst);
 }
