@@ -1852,3 +1852,24 @@ void	test_ft_lst_push_back2(void)
 	TEST_ASSERT_EQUAL_STRING_MESSAGE("one", lst->content, "Data in list is not created properly.");
 	ft_lstdel(&lst, del_str_lst);
 }
+
+// FT_LST_LEN
+void	test_ft_lst_len1(void)
+{
+	t_list	*lst;
+
+	lst = NULL;
+	TEST_ASSERT_EQUAL_INT(0, ft_lst_len(lst));
+}
+
+void	test_ft_lst_len2(void)
+{
+	t_list	*lst;
+
+	lst = NULL;
+	ft_lst_push_back(&lst, strdup("one"), 4 * sizeof(char));
+	ft_lst_push_back(&lst, strdup("two"), 4 * sizeof(char));
+	ft_lst_push_back(&lst, strdup("three"), 6 * sizeof(char));
+	TEST_ASSERT_EQUAL_INT(3, ft_lst_len(lst));
+	ft_lstdel(&lst, del_str_lst);
+}
