@@ -1904,3 +1904,19 @@ void	test_ft_lst_pop1(void)
 	TEST_ASSERT_EQUAL_STRING("two", lst->content);
 	ft_lstdel(&lst, del_str_lst);
 }
+
+// FT_LST_PUSH_FRONT
+void	test_ft_lst_push_front1(void)
+{
+	t_list	*lst;
+
+	lst = NULL;
+	ft_lst_push_front(&lst, strdup("one"), 4 * sizeof(char));
+	ft_lst_push_front(&lst, strdup("two"), 4 * sizeof(char));
+	ft_lst_push_front(&lst, strdup("three"), 6 * sizeof(char));
+	TEST_ASSERT_NOT_NULL(lst);
+	TEST_ASSERT_EQUAL_STRING("three", lst->content);
+	TEST_ASSERT_EQUAL_STRING("two", lst->next->content);
+	TEST_ASSERT_EQUAL_STRING("one", lst->next->next->content);
+	ft_lstdel(&lst, del_str_lst);
+}
