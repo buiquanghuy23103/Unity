@@ -3,3 +3,5 @@ targets
 sandbox/*.diff
 sandbox/*.mine
 log
+error
+leaks

@@ -1,0 +1,3 @@
+:unity:
+  :suite_teardown: "system(\"leaks -q libft.spec.out\");\
+  return (num_failures);"
