@@ -171,6 +171,7 @@ void	test_return_values_when_line_equal_buff_size_and_no_newline(void)
 	gnl_ret = get_next_line(p[0], &line);
 	TEST_ASSERT_EQUAL_STRING(str, line);
 	ft_strdel(&line);
+	ft_strdel(&str);
 	TEST_ASSERT_EQUAL_INT_MESSAGE(1, gnl_ret, "Your function should return 1 after reading the last line");
 
 	/* Read again, but meet EOF */
