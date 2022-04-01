@@ -1573,6 +1573,7 @@ void	test_ft_strnew1(void)
 	bzero(expected, sizeof(char) * (str_len + 1));
 	TEST_ASSERT_EQUAL_MEMORY(expected, actual, str_len + 1);
 	free(actual);
+	free(expected);
 }
 
 void	test_ft_strnew2(void)
@@ -1754,8 +1755,8 @@ void	test_ft_lstdelone1(void)
 	bzero(lst->next, sizeof(t_list));
 	lst->content = &data;
 	lst->next->content = &data;
-	ft_lstdelone(&lst, &lstdelone_test);
-	TEST_ASSERT_NULL(lst);
+	ft_lstdelone(&(lst->next), &lstdelone_test);
+	TEST_ASSERT_NOT_NULL(lst);
 	TEST_ASSERT_EQUAL_INT_MESSAGE(1, lstdelone_count, "The number of items deleted is not equal to the number of list items.");
 	free(lst);
 }
@@ -1795,6 +1796,7 @@ static t_list	*lstmap_test_fn(t_list *list)
 	bzero(l2, sizeof(t_list));
 	l2->content = &data;
 	l2->content_size = list->content_size * 2;
+	l2->next = NULL;
 	return (l2);
 }
 
@@ -1847,7 +1849,7 @@ void	test_ft_lst_push_back2(void)
 	t_list	*lst;
 
 	lst = NULL;
-	ft_lst_push_back(&lst, strdup("one"), 4);
+	ft_lst_push_back(&lst, "one", 4);
 	TEST_ASSERT_NOT_NULL_MESSAGE(lst, "If list is null, you must initialize it.");
 	TEST_ASSERT_EQUAL_STRING_MESSAGE("one", lst->content, "Data in list is not created properly.");
 	ft_lstdel(&lst, del_str_lst);
