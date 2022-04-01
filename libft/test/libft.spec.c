@@ -1897,7 +1897,7 @@ void	test_ft_lst_pop1(void)
 	t_list	*lst;
 
 	lst = NULL;
-	ft_lst_push_back(&lst, strdup("one"), 4 * sizeof(char));
+	ft_lst_push_back(&lst, "one", 4 * sizeof(char));
 	ft_lst_push_back(&lst, strdup("two"), 4 * sizeof(char));
 	ft_lst_push_back(&lst, strdup("three"), 6 * sizeof(char));
 	TEST_ASSERT_EQUAL_STRING("one", ft_lst_pop_front(&lst)->content);
@@ -1919,4 +1919,28 @@ void	test_ft_lst_push_front1(void)
 	TEST_ASSERT_EQUAL_STRING("two", lst->next->content);
 	TEST_ASSERT_EQUAL_STRING("one", lst->next->next->content);
 	ft_lstdel(&lst, del_str_lst);
+}
+
+// FT_LST_POP_BACK
+void	test_ft_lst_pop_back1(void)
+{
+	t_list	*lst;
+	t_list	*temp;
+
+	lst = NULL;
+	ft_lst_push_back(&lst, strdup("one"), 4 * sizeof(char));
+	temp = ft_lst_pop_back(&lst);
+	TEST_ASSERT_EQUAL_STRING("one", temp->content);
+	TEST_ASSERT_NULL(lst);
+	ft_lstdelone(&temp, del_str_lst);
+}
+
+void	test_ft_lst_pop_back2(void)
+{
+	t_list	*lst;
+
+	lst = NULL;
+	ft_lst_push_front(&lst, strdup("one"), 4 * sizeof(char));
+	ft_lst_push_front(&lst, strdup("two"), 4 * sizeof(char));
+	ft_lst_push_front(&lst, strdup("three"), 6 * sizeof(char));
 }
