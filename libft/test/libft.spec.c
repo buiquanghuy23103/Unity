@@ -1833,9 +1833,9 @@ void	test_ft_lst_push_back1(void)
 	t_list	*lst;
 
 	lst = NULL;
-	ft_lst_push_back(&lst, strdup("one"), 4 * sizeof(char));
-	ft_lst_push_back(&lst, strdup("two"), 4 * sizeof(char));
-	ft_lst_push_back(&lst, strdup("three"), 6 * sizeof(char));
+	ft_lst_push_back(&lst, "one", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "two", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "three", 6 * sizeof(char));
 	TEST_ASSERT_EQUAL_STRING("one", lst->content);
 	TEST_ASSERT_EQUAL_STRING("two", lst->next->content);
 	TEST_ASSERT_EQUAL_STRING("three", lst->next->next->content);
@@ -1867,9 +1867,9 @@ void	test_ft_lst_len2(void)
 	t_list	*lst;
 
 	lst = NULL;
-	ft_lst_push_back(&lst, strdup("one"), 4 * sizeof(char));
-	ft_lst_push_back(&lst, strdup("two"), 4 * sizeof(char));
-	ft_lst_push_back(&lst, strdup("three"), 6 * sizeof(char));
+	ft_lst_push_back(&lst, "one", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "two", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "three", 6 * sizeof(char));
 	TEST_ASSERT_EQUAL_INT(3, ft_lst_len(lst));
 	ft_lstdel(&lst, del_str_lst);
 }
@@ -1880,9 +1880,9 @@ void	test_ft_lst_get1(void)
 	t_list	*lst;
 
 	lst = NULL;
-	ft_lst_push_back(&lst, strdup("one"), 4 * sizeof(char));
-	ft_lst_push_back(&lst, strdup("two"), 4 * sizeof(char));
-	ft_lst_push_back(&lst, strdup("three"), 6 * sizeof(char));
+	ft_lst_push_back(&lst, "one", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "two", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "three", 6 * sizeof(char));
 	TEST_ASSERT_EQUAL_STRING("one", ft_lst_get(lst, 0)->content);
 	TEST_ASSERT_EQUAL_STRING("two", ft_lst_get(lst, 1)->content);
 	TEST_ASSERT_EQUAL_STRING("two", ft_lst_get(lst, -2)->content);
@@ -1895,14 +1895,19 @@ void	test_ft_lst_get1(void)
 void	test_ft_lst_pop1(void)
 {
 	t_list	*lst;
+	t_list	*ptr;
 
 	lst = NULL;
 	ft_lst_push_back(&lst, "one", 4 * sizeof(char));
-	ft_lst_push_back(&lst, strdup("two"), 4 * sizeof(char));
-	ft_lst_push_back(&lst, strdup("three"), 6 * sizeof(char));
-	TEST_ASSERT_EQUAL_STRING("one", ft_lst_pop_front(&lst)->content);
+	ft_lst_push_back(&lst, "two", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "three", 6 * sizeof(char));
+	ptr = ft_lst_pop_front(&lst);
+	TEST_ASSERT_NOT_NULL(ptr);
+	TEST_ASSERT_NOT_NULL(lst);
+	TEST_ASSERT_EQUAL_STRING("one", ptr->content);
 	TEST_ASSERT_EQUAL_STRING("two", lst->content);
 	ft_lstdel(&lst, del_str_lst);
+	ft_lstdel(&ptr, del_str_lst);
 }
 
 // FT_LST_PUSH_FRONT
@@ -1911,9 +1916,9 @@ void	test_ft_lst_push_front1(void)
 	t_list	*lst;
 
 	lst = NULL;
-	ft_lst_push_front(&lst, strdup("one"), 4 * sizeof(char));
-	ft_lst_push_front(&lst, strdup("two"), 4 * sizeof(char));
-	ft_lst_push_front(&lst, strdup("three"), 6 * sizeof(char));
+	ft_lst_push_front(&lst, "one", 4 * sizeof(char));
+	ft_lst_push_front(&lst, "two", 4 * sizeof(char));
+	ft_lst_push_front(&lst, "three", 6 * sizeof(char));
 	TEST_ASSERT_NOT_NULL(lst);
 	TEST_ASSERT_EQUAL_STRING("three", lst->content);
 	TEST_ASSERT_EQUAL_STRING("two", lst->next->content);
@@ -1928,8 +1933,9 @@ void	test_ft_lst_pop_back1(void)
 	t_list	*temp;
 
 	lst = NULL;
-	ft_lst_push_back(&lst, strdup("one"), 4 * sizeof(char));
+	ft_lst_push_back(&lst, "one", 4 * sizeof(char));
 	temp = ft_lst_pop_back(&lst);
+	TEST_ASSERT_NOT_NULL(temp);
 	TEST_ASSERT_EQUAL_STRING("one", temp->content);
 	TEST_ASSERT_NULL(lst);
 	ft_lstdelone(&temp, del_str_lst);
@@ -1938,9 +1944,19 @@ void	test_ft_lst_pop_back1(void)
 void	test_ft_lst_pop_back2(void)
 {
 	t_list	*lst;
+	t_list	*ptr;
 
 	lst = NULL;
-	ft_lst_push_front(&lst, strdup("one"), 4 * sizeof(char));
-	ft_lst_push_front(&lst, strdup("two"), 4 * sizeof(char));
-	ft_lst_push_front(&lst, strdup("three"), 6 * sizeof(char));
+	ft_lst_push_back(&lst, "one", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "two", 4 * sizeof(char));
+	ft_lst_push_back(&lst, "three", 6 * sizeof(char));
+	ptr = ft_lst_pop_back(&lst);
+	TEST_ASSERT_NOT_NULL(ptr);
+	TEST_ASSERT_NOT_NULL(lst);
+	TEST_ASSERT_EQUAL_STRING("one", lst->content);
+	TEST_ASSERT_EQUAL_STRING("two", lst->next->content);
+	TEST_ASSERT_NULL(lst->next->next);
+	TEST_ASSERT_EQUAL_STRING("three", ptr->content);
+	ft_lstdel(&lst, del_str_lst);
+	ft_lstdel(&ptr, del_str_lst);
 }
